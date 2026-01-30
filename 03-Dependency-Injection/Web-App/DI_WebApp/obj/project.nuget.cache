@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "LJx1+kOn7sU=",
+  "success": true,
+  "projectFilePath": "d:\\DEEPAK\\LEARNING\\03-Dependency-Injection\\Web-App\\DI_WebApp\\DI_WebApp.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\GRL\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.1\\microsoft.aspnetcore.openapi.10.0.1.nupkg.sha512",
+    "C:\\Users\\GRL\\.nuget\\packages\\microsoft.openapi\\2.0.0\\microsoft.openapi.2.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

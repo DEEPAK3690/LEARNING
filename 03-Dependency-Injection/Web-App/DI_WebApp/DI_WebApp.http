@@ -1,0 +1,6 @@
+@DI_WebApp_HostAddress = http://localhost:5079
+
+GET {{DI_WebApp_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

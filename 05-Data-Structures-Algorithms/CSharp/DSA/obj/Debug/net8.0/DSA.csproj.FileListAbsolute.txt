@@ -1,0 +1,15 @@
+D:\DEV\Code\DSA\DSA\bin\Debug\net8.0\DSA.exe
+D:\DEV\Code\DSA\DSA\bin\Debug\net8.0\DSA.deps.json
+D:\DEV\Code\DSA\DSA\bin\Debug\net8.0\DSA.runtimeconfig.json
+D:\DEV\Code\DSA\DSA\bin\Debug\net8.0\DSA.dll
+D:\DEV\Code\DSA\DSA\bin\Debug\net8.0\DSA.pdb
+D:\DEV\Code\DSA\DSA\obj\Debug\net8.0\DSA.GeneratedMSBuildEditorConfig.editorconfig
+D:\DEV\Code\DSA\DSA\obj\Debug\net8.0\DSA.AssemblyInfoInputs.cache
+D:\DEV\Code\DSA\DSA\obj\Debug\net8.0\DSA.AssemblyInfo.cs
+D:\DEV\Code\DSA\DSA\obj\Debug\net8.0\DSA.csproj.CoreCompileInputs.cache
+D:\DEV\Code\DSA\DSA\obj\Debug\net8.0\DSA.sourcelink.json
+D:\DEV\Code\DSA\DSA\obj\Debug\net8.0\DSA.dll
+D:\DEV\Code\DSA\DSA\obj\Debug\net8.0\refint\DSA.dll
+D:\DEV\Code\DSA\DSA\obj\Debug\net8.0\DSA.pdb
+D:\DEV\Code\DSA\DSA\obj\Debug\net8.0\DSA.genruntimeconfig.cache
+D:\DEV\Code\DSA\DSA\obj\Debug\net8.0\ref\DSA.dll

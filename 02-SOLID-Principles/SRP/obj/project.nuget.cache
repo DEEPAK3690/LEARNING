@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "AA0j3Rek8Po=",
+  "success": true,
+  "projectFilePath": "d:\\DEEPAK\\LEARNING\\02-SOLID-Principles\\SRP\\SRP.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\GRL\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
+    "C:\\Users\\GRL\\.nuget\\packages\\moq\\4.20.72\\moq.4.20.72.nupkg.sha512",
+    "C:\\Users\\GRL\\.nuget\\packages\\system.diagnostics.eventlog\\6.0.0\\system.diagnostics.eventlog.6.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
