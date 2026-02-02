@@ -1,10 +1,11 @@
 ﻿//using Microsoft.AspNetCore.Http;
 //using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Builder; // Add this using directive
-using Microsoft.Extensions.DependencyInjection; // Add this using directive
-using Microsoft.Extensions.Hosting; // Add this using directive
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 using MyWebApplication.Models;
+using MyWebApplication.Models.DIExamples;
 
 namespace MyWebApplication
 {
@@ -17,6 +18,17 @@ namespace MyWebApplication
             // Add services to the container.
             // Register the EmployeeRepository for Dependency Injection
             builder.Services.AddSingleton<IEmployeeRepository, EmployeeRepository>();
+
+            // ============ DEPENDENCY INJECTION - ALL LIFETIMES ============
+            // TRANSIENT: New instance created every time it's requested
+            builder.Services.AddTransient<ITransientService, TransientService>();
+
+            // SCOPED: One instance per HTTP request
+            builder.Services.AddScoped<IScopedService, ScopedService>();
+
+            // SINGLETON: One instance for entire application lifetime
+            builder.Services.AddSingleton<ISingletonService, SingletonService>();
+            // ===============================================================
 
             builder.Services.AddControllers();//Register all controller classes with the DI container.
 
@@ -65,17 +77,14 @@ namespace MyWebApplication
                 }
             });
             // Add demo middlewares to show the flow
-            app.UseMiddleware<WebApplication.Middleware.FirstMiddleware>();
-            app.UseMiddleware<WebApplication.Middleware.SecondMiddleware>();
-            app.UseMiddleware<WebApplication.Middleware.ThirdMiddleware>();
-            app.UseMiddleware<WebApplication.Middleware.RequestLoggingMiddleware>();
+            //app.UseMiddleware<WebApplication.Middleware.FirstMiddleware>();
+            //app.UseMiddleware<WebApplication.Middleware.SecondMiddleware>();
+            //app.UseMiddleware<WebApplication.Middleware.ThirdMiddleware>();
+            //app.UseMiddleware<WebApplication.Middleware.RequestLoggingMiddleware>();
             app.UseHttpsRedirection();
             app.UseAuthorization();
 
             app.MapControllers();
-
-            
-
 
             app.Run();
         }
