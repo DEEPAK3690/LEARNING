@@ -37,7 +37,33 @@ namespace MyWebApplication
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
+            app.Use(async (context, next) =>
+            {
+                try
+                {
+                    await next();
+                }
+                catch (NotImplementedException ex)
+                {
+                    context.Response.StatusCode = 501; // Not Implemented
+                    await context.Response.WriteAsJsonAsync(new { error = "This feature is not yet implemented", details = ex.Message });
+                }
+                catch (ArgumentException ex)
+                {
+                    context.Response.StatusCode = 400; // Bad Request
+                    await context.Response.WriteAsJsonAsync(new { error = "Invalid argument", details = ex.Message });
+                }
+                catch (InvalidOperationException ex)
+                {
+                    context.Response.StatusCode = 409; // Conflict
+                    await context.Response.WriteAsJsonAsync(new { error = "Invalid operation", details = ex.Message });
+                }
+                catch (Exception ex)
+                {
+                    context.Response.StatusCode = 500; // Internal Server Error
+                    await context.Response.WriteAsJsonAsync(new { error = "Something went wrong", details = ex.Message });
+                }
+            });
             // Add demo middlewares to show the flow
             app.UseMiddleware<WebApplication.Middleware.FirstMiddleware>();
             app.UseMiddleware<WebApplication.Middleware.SecondMiddleware>();
@@ -47,6 +73,8 @@ namespace MyWebApplication
             app.UseAuthorization();
 
             app.MapControllers();
+
+            
 
 
             app.Run();

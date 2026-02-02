@@ -21,6 +21,7 @@
         }
         public Employee? GetById(int id)
         {
+            throw new NotImplementedException();//added to check the middleware functionality (exception handling)
             return _employees.FirstOrDefault(e => e.Id == id);
         }
         public void Add(Employee employee)
