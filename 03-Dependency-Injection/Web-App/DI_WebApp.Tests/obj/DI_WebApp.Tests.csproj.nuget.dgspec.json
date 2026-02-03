@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "d:\\DEEPAK\\LEARNING\\03-Dependency-Injection\\Web-App\\DI_WebApp.Tests\\DI_WebApp.Tests.csproj": {}
+    "D:\\GITHUB\\LEARNING\\03-Dependency-Injection\\Web-App\\DI_WebApp.Tests\\DI_WebApp.Tests.csproj": {}
   },
   "projects": {
-    "d:\\DEEPAK\\LEARNING\\03-Dependency-Injection\\Web-App\\DI_WebApp.Tests\\DI_WebApp.Tests.csproj": {
+    "D:\\GITHUB\\LEARNING\\03-Dependency-Injection\\Web-App\\DI_WebApp.Tests\\DI_WebApp.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\DEEPAK\\LEARNING\\03-Dependency-Injection\\Web-App\\DI_WebApp.Tests\\DI_WebApp.Tests.csproj",
+        "projectUniqueName": "D:\\GITHUB\\LEARNING\\03-Dependency-Injection\\Web-App\\DI_WebApp.Tests\\DI_WebApp.Tests.csproj",
         "projectName": "DI_WebApp.Tests",
-        "projectPath": "d:\\DEEPAK\\LEARNING\\03-Dependency-Injection\\Web-App\\DI_WebApp.Tests\\DI_WebApp.Tests.csproj",
-        "packagesPath": "C:\\Users\\GRL\\.nuget\\packages\\",
-        "outputPath": "d:\\DEEPAK\\LEARNING\\03-Dependency-Injection\\Web-App\\DI_WebApp.Tests\\obj\\",
+        "projectPath": "D:\\GITHUB\\LEARNING\\03-Dependency-Injection\\Web-App\\DI_WebApp.Tests\\DI_WebApp.Tests.csproj",
+        "packagesPath": "C:\\Users\\deepa\\.nuget\\packages\\",
+        "outputPath": "D:\\GITHUB\\LEARNING\\03-Dependency-Injection\\Web-App\\DI_WebApp.Tests\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\GRL\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\deepa\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -32,8 +32,8 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "d:\\DEEPAK\\LEARNING\\03-Dependency-Injection\\Web-App\\DI_WebApp\\DI_WebApp.csproj": {
-                "projectPath": "d:\\DEEPAK\\LEARNING\\03-Dependency-Injection\\Web-App\\DI_WebApp\\DI_WebApp.csproj"
+              "D:\\GITHUB\\LEARNING\\03-Dependency-Injection\\Web-App\\DI_WebApp\\DI_WebApp.csproj": {
+                "projectPath": "D:\\GITHUB\\LEARNING\\03-Dependency-Injection\\Web-App\\DI_WebApp\\DI_WebApp.csproj"
               }
             }
           }
@@ -95,7 +95,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.101/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -373,20 +373,20 @@
         }
       }
     },
-    "d:\\DEEPAK\\LEARNING\\03-Dependency-Injection\\Web-App\\DI_WebApp\\DI_WebApp.csproj": {
+    "D:\\GITHUB\\LEARNING\\03-Dependency-Injection\\Web-App\\DI_WebApp\\DI_WebApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\DEEPAK\\LEARNING\\03-Dependency-Injection\\Web-App\\DI_WebApp\\DI_WebApp.csproj",
+        "projectUniqueName": "D:\\GITHUB\\LEARNING\\03-Dependency-Injection\\Web-App\\DI_WebApp\\DI_WebApp.csproj",
         "projectName": "DI_WebApp",
-        "projectPath": "d:\\DEEPAK\\LEARNING\\03-Dependency-Injection\\Web-App\\DI_WebApp\\DI_WebApp.csproj",
-        "packagesPath": "C:\\Users\\GRL\\.nuget\\packages\\",
-        "outputPath": "d:\\DEEPAK\\LEARNING\\03-Dependency-Injection\\Web-App\\DI_WebApp\\obj\\",
+        "projectPath": "D:\\GITHUB\\LEARNING\\03-Dependency-Injection\\Web-App\\DI_WebApp\\DI_WebApp.csproj",
+        "packagesPath": "C:\\Users\\deepa\\.nuget\\packages\\",
+        "outputPath": "D:\\GITHUB\\LEARNING\\03-Dependency-Injection\\Web-App\\DI_WebApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\GRL\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\deepa\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -443,7 +443,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.101/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.AspNetCore": "(,10.0.32767]",
             "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",

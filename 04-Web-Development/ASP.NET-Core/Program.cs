@@ -1,11 +1,13 @@
 ﻿//using Microsoft.AspNetCore.Http;
 //using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 using MyWebApplication.Models;
 using MyWebApplication.Models.DIExamples;
+using MyWebApplication.Services;
 
 namespace MyWebApplication
 {
@@ -14,6 +16,12 @@ namespace MyWebApplication
         public static void Main(string[] args)
         {
             var builder = Microsoft.AspNetCore.Builder.WebApplication.CreateBuilder(args);
+
+            // ============ CONFIGURATION ============
+            var jwtSettings = builder.Configuration.GetSection("Jwt");
+            var secretKey = jwtSettings["SecretKey"] ?? "this-is-a-super-secret-key-min-32-characters-long!!!";
+            var issuer = jwtSettings["Issuer"] ?? "MyWebApplication";
+            var audience = jwtSettings["Audience"] ?? "MyWebApplicationUsers";
 
             // Add services to the container.
             // Register the EmployeeRepository for Dependency Injection
@@ -28,6 +36,45 @@ namespace MyWebApplication
 
             // SINGLETON: One instance for entire application lifetime
             builder.Services.AddSingleton<ISingletonService, SingletonService>();
+            // ===============================================================
+
+            // ============ AUTHENTICATION & AUTHORIZATION ============
+            // Register authentication services
+            builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
+
+            // Configure JWT Authentication
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey)),
+                    ValidateIssuer = true,
+                    ValidIssuer = issuer,
+                    ValidateAudience = true,
+                    ValidAudience = audience,
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero
+                };
+            });
+
+            // Configure Authorization
+            builder.Services.AddAuthorization(options =>
+            {
+                // You can add custom authorization policies here if needed
+                options.AddPolicy("AdminOnly", policy =>
+                    policy.RequireRole("Admin"));
+
+                options.AddPolicy("ManagerOrAdmin", policy =>
+                    policy.RequireRole("Manager", "Admin"));
+            });
             // ===============================================================
 
             builder.Services.AddControllers();//Register all controller classes with the DI container.
@@ -76,13 +123,16 @@ namespace MyWebApplication
                     await context.Response.WriteAsJsonAsync(new { error = "Something went wrong", details = ex.Message });
                 }
             });
-            // Add demo middlewares to show the flow
-            //app.UseMiddleware<WebApplication.Middleware.FirstMiddleware>();
-            //app.UseMiddleware<WebApplication.Middleware.SecondMiddleware>();
-            //app.UseMiddleware<WebApplication.Middleware.ThirdMiddleware>();
-            //app.UseMiddleware<WebApplication.Middleware.RequestLoggingMiddleware>();
+
             app.UseHttpsRedirection();
-            app.UseAuthorization();
+
+            // ============ AUTHENTICATION & AUTHORIZATION MIDDLEWARE ============
+            // ORDER MATTERS! Must be in this order:
+            // 1. UseAuthentication - Identifies the user (who are you?)
+            // 2. UseAuthorization - Checks permissions (what can you do?)
+            app.UseAuthentication();  // Validates JWT token
+            app.UseAuthorization();   // Checks roles and permissions
+            // ===============================================================
 
             app.MapControllers();
 

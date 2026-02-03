@@ -9,10 +9,10 @@
             _employees = new List<Employee>
             {
                 new Employee { Id = 1, Name = "John Doe", Position = "Software Engineer", Age = 32, Email = "john.doe@example.com" },
-                new Employee { Id = 1, Name = "puluthi", Position = "Software Engineer", Age = 30, Email = "john.doe@example.com" },
-                new Employee { Id = 1, Name = "PD", Position = "Software Engineer", Age = 20, Email = "john.doe@example.com" },
-                new Employee { Id = 1, Name = "John wick", Position = "Software Engineer", Age = 39, Email = "john.doe@example.com" },
-                new Employee { Id = 2, Name = "Jane Smith", Position = "Project Manager", Age = 35, Email = "jane.smith@example.com" }
+                new Employee { Id = 2, Name = "puluthi", Position = "Software Engineer", Age = 30, Email = "john.doe@example.com" },
+                new Employee { Id = 3, Name = "PD", Position = "Software Engineer", Age = 20, Email = "john.doe@example.com" },
+                new Employee { Id = 4, Name = "John wick", Position = "Software Engineer", Age = 39, Email = "john.doe@example.com" },
+                new Employee { Id = 5, Name = "Jane Smith", Position = "Project Manager", Age = 35, Email = "jane.smith@example.com" }
             };
         }
         public IEnumerable<Employee> GetAll()
@@ -21,7 +21,7 @@
         }
         public Employee? GetById(int id)
         {
-            throw new NotImplementedException();//added to check the middleware functionality (exception handling)
+            //throw new NotImplementedException();//added to check the middleware functionality (exception handling)
             return _employees.FirstOrDefault(e => e.Id == id);
         }
         public void Add(Employee employee)

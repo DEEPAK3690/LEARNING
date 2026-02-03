@@ -18,3 +18,6 @@ this token is used to authenticate and authorize the users
 problem without jwt token , the server needs to remember and the store the session data ,not scalable
 
 
+
+in authorization we can add policies to check the endpoint
+Policies are just rules over claims.
