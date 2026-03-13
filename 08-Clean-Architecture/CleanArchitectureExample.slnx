@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/CleanArchitectureExample.Api/CleanArchitectureExample.Api.csproj" />
+    <Project Path="src/CleanArchitectureExample.Application/CleanArchitectureExample.Application.csproj" />
+    <Project Path="src/CleanArchitectureExample.Domain/CleanArchitectureExample.Domain.csproj" />
+    <Project Path="src/CleanArchitectureExample.Infrastructure/CleanArchitectureExample.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/CleanArchitectureExample.Application.Tests/CleanArchitectureExample.Application.Tests.csproj" />
+  </Folder>
+</Solution>

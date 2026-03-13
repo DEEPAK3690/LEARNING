@@ -11,3 +11,14 @@
 /03-Dependency-Injection/Web-App/DI_WebApp.Tests/obj
 /03-Dependency-Injection/Web-App/DI_WebApp.Tests/obj
 /03-Dependency-Injection/Web-App/DI_WebApp.Tests/obj
+/08-Clean-Architecture/src/CleanArchitectureExample.Api/bin
+/08-Clean-Architecture/.vs
+/08-Clean-Architecture/src/CleanArchitectureExample.Domain/obj
+/08-Clean-Architecture/tests/CleanArchitectureExample.Application.Tests/bin
+/08-Clean-Architecture/tests/CleanArchitectureExample.Application.Tests/obj
+/08-Clean-Architecture/src/CleanArchitectureExample.Infrastructure/obj
+/08-Clean-Architecture/src/CleanArchitectureExample.Domain/bin
+/08-Clean-Architecture/src/CleanArchitectureExample.Infrastructure/bin
+/08-Clean-Architecture/src/CleanArchitectureExample.Application/obj
+/08-Clean-Architecture/src/CleanArchitectureExample.Application/bin
+/08-Clean-Architecture/src/CleanArchitectureExample.Api/obj
