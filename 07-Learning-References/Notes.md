@@ -21,4 +21,20 @@ by default primary key is clusted index ,
 
 clustured index is have the address for the pafes in intermediate node in B tree structure 
 
-non clusted index have the address for the pafes in intermediate node in B tree structure and additional node that have pointer to the exact data in data pages
+non clusted index have the address for the pafes in intermediate node in B tree structure and additional node that have pointer to the exact data in data pages 
+
+Without Index:
+→ Scan everything
+
+With Non-Clustered Index:
+→ Search index → Jump to row
+
+With Clustered Index:
+→ Data already sorted → Direct access
+
+INSERT row →
+Find correct position in index →
+Shift/rebalance tree →
+Write to disk
+
+Increased Storage Usage
