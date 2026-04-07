@@ -16,11 +16,11 @@ namespace EF_CORE
             // Retrieve and display all students
             GetAllStudents(context);
             // Retrieve and display a single student by ID
-            GetStudentById(context, 1); // Assuming 1 is the Students
+            GetStudentById(context, 1); // Assuming 1 is the StudentId
             // Update a student's information
-            UpdateStudent(context, 1); // Assuming 1 is the Students
+            UpdateStudent(context, 1); // Assuming 1 is the StudentId
             // Delete a student by ID
-            DeleteStudent(context, 2); // Assuming 2 is the Students
+            DeleteStudent(context, 2); // Assuming 2 is the StudentId
             // Final retrieval to confirm operations
             GetAllStudents(context);
             Console.WriteLine("All operations completed successfully!");
@@ -93,30 +93,30 @@ namespace EF_CORE
             Console.WriteLine("All Students:");
             foreach (var student in students)
             {
-                Console.WriteLine($"\t{student.Students}: {student.FirstName} {student.LastName}, Branch: {student.Branch?.BranchName}");
+                Console.WriteLine($"\t{student.StudentId}: {student.FirstName} {student.LastName}, Branch: {student.Branch?.BranchName}");
             }
             foreach (var student in student1s)
             {
-                Console.WriteLine($"\t{student.Students}: {student.FirstName} {student.LastName}, Branch: {student.Branch?.BranchName}");
+                Console.WriteLine($"\t{student.StudentId}: {student.FirstName} {student.LastName}, Branch: {student.Branch?.BranchName}");
             }
         }
-        private static void GetStudentById(EFCoreDbContext context, int Students)
+        private static void GetStudentById(EFCoreDbContext context, int studentId)
         {
             // Retrieve a single student by ID
-            var student = context.Students.Include(s => s.Branch).FirstOrDefault(s => s.Students == Students);
+            var student = context.Students.Include(s => s.Branch).FirstOrDefault(s => s.StudentId == studentId);
             if (student != null)
             {
                 Console.WriteLine($"Student found: {student.FirstName} {student.LastName}, Branch: {student.Branch?.BranchName}");
             }
             else
             {
-                Console.WriteLine($"Student with ID {Students} not found.");
+                Console.WriteLine($"Student with ID {studentId} not found.");
             }
         }
-        private static void UpdateStudent(EFCoreDbContext context, int Students)
+        private static void UpdateStudent(EFCoreDbContext context, int studentId)
         {
             // Retrieve the student from the context
-            var student = context.Students.FirstOrDefault(s => s.Students == Students);
+            var student = context.Students.FirstOrDefault(s => s.StudentId == studentId);
             if (student != null)
             {
                 // Update the student's information
@@ -124,28 +124,28 @@ namespace EF_CORE
                 student.Email = "updated.email@dotnettutorials.net";
                 // Save changes to the database
                 context.SaveChanges();
-                Console.WriteLine($"Student with ID {Students} updated successfully.");
+                Console.WriteLine($"Student with ID {studentId} updated successfully.");
             }
             else
             {
-                Console.WriteLine($"Student with ID {Students} not found.");
+                Console.WriteLine($"Student with ID {studentId} not found.");
             }
         }
-        private static void DeleteStudent(EFCoreDbContext context, int Students)
+        private static void DeleteStudent(EFCoreDbContext context, int studentId)
         {
             // Retrieve the student from the context
-            var student = context.Students.FirstOrDefault(s => s.Students == Students);
+            var student = context.Students.FirstOrDefault(s => s.StudentId == studentId);
             if (student != null)
             {
                 // Remove the student from the context
                 context.Students.Remove(student);
                 // Save changes to the database
                 context.SaveChanges();
-                Console.WriteLine($"Student with ID {Students} deleted successfully.");
+                Console.WriteLine($"Student with ID {studentId} deleted successfully.");
             }
             else
             {
-                Console.WriteLine($"Student with ID {Students} not found.");
+                Console.WriteLine($"Student with ID {studentId} not found.");
             }
         }
 

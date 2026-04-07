@@ -11,8 +11,8 @@ namespace EF_CORE.Entities
     [Table("tb_Students")]
     public class Student
     {
-        [Key]//used to denaote as primary key
-        public int Students { get; set; }
+        [Key]
+        public int StudentId { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public DateTime? DateOfBirth { get; set; }
@@ -25,7 +25,10 @@ namespace EF_CORE.Entities
         public DateTime EnrollmentDate { get; set; }
 
         [NotMapped]
-        public int? customid { get; set; }
+        public int? CustomId { get; set; }
+
+        // Explicit foreign key column in tb_Students table.
+        public int? BranchId { get; set; }
 
         // Navigation property representing the Branch the student is enrolled in
         public virtual Branch? Branch { get; set; }

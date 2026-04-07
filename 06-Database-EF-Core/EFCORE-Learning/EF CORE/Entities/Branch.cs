@@ -10,13 +10,13 @@ namespace EF_CORE.Entities
     public class Branch
     {
         [Key]
-        public int Branch_Id { get; set; }
+        public int BranchId { get; set; }
         [Required]
-        public string? BranchName { get; set; }
+        public string BranchName { get; set; } = string.Empty;
         public string? Description { get; set; }
         public string? PhoneNumber { get; set; }
         public string? Email { get; set; }
         // Collection navigation property representing the students enrolled in the branch
-        public ICollection<Student>? Students { get; set; }
+        public ICollection<Student> Students { get; set; } = new List<Student>();
     }
 }

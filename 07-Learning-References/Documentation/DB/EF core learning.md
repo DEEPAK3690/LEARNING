@@ -93,7 +93,7 @@ Migrations in EF Core are a mechanism to keep your database schema in sync with 
 
 The most important point to remember is that whenever we add or modify domain classes or configurations, we need to sync the database with the model using the **Add-Migration** and **Update-Database** commands. Each time we generate the Migration, we need to provide a name that should have been provided earlier
 
-IF the is a change on class / tables / propery/ delete migration is required 
+IF the is a change on class / tables / propery/ delete migration is required
 
 ##### LAZY loading
 
