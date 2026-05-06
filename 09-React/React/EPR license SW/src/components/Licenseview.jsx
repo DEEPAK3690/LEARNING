@@ -20,6 +20,8 @@ const LicenseView = () => {
 
     const [PermanentLicenses, setPermanentLicenses] = useState([]);
     const [TemporaryLicenses, setTemporaryLicenses] = useState([]);
+    const [removedPermanentLicenses, setRemovedPermanentLicenses] = useState([]);
+    const [removedTemporaryLicenses, setRemovedTemporaryLicenses] = useState([]);
 
     const addlicense = (type) => {
         if (type === "permanent" && selectedPermanent) {
@@ -33,6 +35,7 @@ const LicenseView = () => {
                 console.log("Permanent Licenses:", updated);
                 return updated;
             });
+            // setRemovedPermanentLicenses((prev) => prev.filter((license) => license !== selectedPermanent));
             setStatusMessage("Permanent license added.");
         } else if (type === "temporary" && selectedTemporary) {
             if (TemporaryLicenses.includes(selectedTemporary)) {
@@ -45,25 +48,48 @@ const LicenseView = () => {
                 console.log("Temporary Licenses:", updated);
                 return updated;
             });
+            setRemovedTemporaryLicenses((prev) => prev.filter((license) => license !== selectedTemporary));
             setStatusMessage("Temporary license added.");
         }
     };
 
     const removelicense = (type) => {
         if (type === "permanent" && selectedPermanent) {
-            setPermanentLicenses((prev) => {
-                const updated = prev.filter((license) => license !== selectedPermanent);
-                console.log("Permanent Licenses:", updated);
-                return updated;
-            });
-            setStatusMessage("Permanent license removed.");
+            if (PermanentLicenses.includes(selectedPermanent)) {
+                setPermanentLicenses((prev) => {
+                    const updated = prev.filter((license) => license !== selectedPermanent);
+                    console.log("Permanent Licenses:", updated);
+                    return updated;
+                });
+                setStatusMessage("Permanent license removed from added list.");
+                return;
+            }
+
+            if (removedPermanentLicenses.includes(selectedPermanent)) {
+                setStatusMessage("Permanent license already marked for removal.");
+                return;
+            }
+
+            setRemovedPermanentLicenses((prev) => [...prev, selectedPermanent]);
+            setStatusMessage("Permanent license marked for removal.");
         } else if (type === "temporary" && selectedTemporary) {
-            setTemporaryLicenses((prev) => {
-                const updated = prev.filter((license) => license !== selectedTemporary);
-                console.log("Temporary Licenses:", updated);
-                return updated;
-            });
-            setStatusMessage("Temporary license removed.");
+            if (TemporaryLicenses.includes(selectedTemporary)) {
+                setTemporaryLicenses((prev) => {
+                    const updated = prev.filter((license) => license !== selectedTemporary);
+                    console.log("Temporary Licenses:", updated);
+                    return updated;
+                });
+                setStatusMessage("Temporary license removed from added list.");
+                return;
+            }
+
+            if (removedTemporaryLicenses.includes(selectedTemporary)) {
+                setStatusMessage("Temporary license already marked for removal.");
+                return;
+            }
+
+            setRemovedTemporaryLicenses((prev) => [...prev, selectedTemporary]);
+            setStatusMessage("Temporary license marked for removal.");
         }
     };
 
@@ -133,8 +159,21 @@ const LicenseView = () => {
                                 <button onClick={() => removelicense("temporary")}>Remove</button>
                             </div>
                         </div>
+
+                        <div className="license-viewer">
+                            <div className="viewer-card">
+                                <h3>Added Permanent Licenses</h3>
+                                <p><span>Permanent:</span> {PermanentLicenses.length ? PermanentLicenses.join(", ") : "None"}</p>
+                            </div>
+                            <div className="viewer-card">
+                                <h3>Added Temporary Licenses</h3>
+                                <p><span>Temporary:</span> {TemporaryLicenses.length ? TemporaryLicenses.join(", ") : "None"}</p>
+                            </div>
+                        </div>
+                        {statusMessage && <p className="status-message">{statusMessage}</p>}
+
                         <div className="remove-license">
-                            <button>Update</button>
+                            <button >Update</button>
                         </div>
                     </>
                 ) : (
