@@ -1,42 +1,76 @@
-.License-view-main
-{
-    border: 1px solid black;
-    margin: 5px;
-    width: 350px;
-    background: rgb(212, 212, 212);
-    border-radius: 0.5rem;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: row;
-}
-
-.Connection-view
-{
-    display: flex;
-    flex-direction: column;
+.License-view-main {
+    display: grid;
+    grid-template-columns: 360px minmax(0, 1fr);
     gap: 1rem;
-    padding: 2rem;
+    width: 100%;
+    min-height: calc(100vh - 100px);
+    padding: 1rem;
+    background: #d4d4d4;
 }
 
-.License-info
-{
+.Connection-view {
+    width: 360px;
+    max-width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    padding: 1rem;
+    gap: 0.9rem;
+    padding: 1.5rem;
+    border: 1px solid #1f2937;
+    border-radius: 0.5rem;
+    background: #e5e7eb;
 }
 
-span
-{
+.Connection-view label {
+    font-size: 1.2rem;
+}
+
+.Connection-view input,
+.Connection-view button {
+    width: 100%;
+    padding: 0.65rem 0.75rem;
+    font-size: 1.1rem;
+    border: 1px solid #9ca3af;
+    border-radius: 4px;
+}
+
+.Connection-view button {
+    cursor: pointer;
+    background: #f3f4f6;
+}
+
+.Connection-view button:hover {
+    background: #e5e7eb;
+}
+
+.License-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    padding: 0.75rem;
+    border: 1px solid #9ca3af;
+    border-radius: 0.4rem;
+    background: #f9fafb;
+}
+
+span {
     font-weight: bold;
 }
 
-.License-Update
-{
-    border: 1px solid black;
-    margin: 5px;
-    width: 350px;
-    background: rgb(212, 212, 212);
+.License-Update {
+    min-width: 0;
+    border: 1px solid #1f2937;
     border-radius: 0.5rem;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background: #e5e7eb;
+    padding: 1.5rem;
+}
+
+@media (max-width: 900px) {
+    .License-view-main {
+        grid-template-columns: 1fr;
+        min-height: auto;
+    }
+
+    .Connection-view {
+        width: 100%;
+    }
 }

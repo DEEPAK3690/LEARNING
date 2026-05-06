@@ -42,14 +42,14 @@ const LicenseView = () => {
                     </div>)}
             </div>
 
-            {isConnected ? (
-                <div className="License-Update">
-                    <h2>License Update</h2>
+            <div className="License-Update">
+                <h2>License Update</h2>
+                {isConnected ? (
                     <p>Here you can update your licenses.</p>
-                </div>) : (<div className="License-Update">
-                    <h2>License Update</h2>
+                ) : (
                     <p>Please connect to a device to update licenses.</p>
-                </div>)}
+                )}
+            </div>
 
         </div>
     );

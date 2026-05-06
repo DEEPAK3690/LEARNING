@@ -11,5 +11,5 @@
     line-height: 1.5;
     border: #1e3a8a solid 4px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 }
