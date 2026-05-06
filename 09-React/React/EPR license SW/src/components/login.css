@@ -1,0 +1,19 @@
+.login-main {
+    border: 1px solid black;
+    margin: 5px;
+    width: 500px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    background: rgb(255, 255, 255);
+    border-radius: 0.5rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 2rem;
+
+}

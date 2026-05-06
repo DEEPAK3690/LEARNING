@@ -1,0 +1,30 @@
+.License-view-main
+{
+    border: 1px solid black;
+    margin: 5px;
+    width: 350px;
+    background: rgb(212, 212, 212);
+    border-radius: 0.5rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.Connection-view
+{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 2rem;
+}
+
+.License-info
+{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+}
+
+span
+{
+    font-weight: bold;
+}
