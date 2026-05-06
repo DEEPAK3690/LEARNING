@@ -35,7 +35,7 @@ const LicenseView = () => {
                 console.log("Permanent Licenses:", updated);
                 return updated;
             });
-            // setRemovedPermanentLicenses((prev) => prev.filter((license) => license !== selectedPermanent));
+            setRemovedPermanentLicenses((prev) => prev.filter((license) => license !== selectedPermanent));
             setStatusMessage("Permanent license added.");
         } else if (type === "temporary" && selectedTemporary) {
             if (TemporaryLicenses.includes(selectedTemporary)) {
