@@ -32,13 +32,23 @@ const LicenseView = () => {
                 />
                 <button onClick={handleConnect}>Connect</button>
                 {isConnected && <p>Connected to {ipAddress}</p>}
+
+                {isConnected && (
+                    <div className="License-info">
+                        <h2>License Information</h2>
+                        <p>Serial Number: {deviceInfo.SerialNumber}</p>
+                        <p><span>Permanent Licenses:</span> {deviceInfo.PermanentLicense.join(", ")}</p>
+                        <p><span>Temporary Licenses:</span> {deviceInfo.TemporaryLicense.join(", ")}</p>
+                    </div>)}
             </div>
-            {isConnected && (
-                <div className="License-info">
-                    <h2>License Information</h2>
-                    <p>Serial Number: {deviceInfo.SerialNumber}</p>
-                    <p><span>Permanent Licenses:</span> {deviceInfo.PermanentLicense.join(", ")}</p>
-                    <p><span>Temporary Licenses:</span> {deviceInfo.TemporaryLicense.join(", ")}</p>
+
+            {isConnected ? (
+                <div className="License-Update">
+                    <h2>License Update</h2>
+                    <p>Here you can update your licenses.</p>
+                </div>) : (<div className="License-Update">
+                    <h2>License Update</h2>
+                    <p>Please connect to a device to update licenses.</p>
                 </div>)}
 
         </div>
