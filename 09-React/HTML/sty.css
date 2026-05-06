@@ -1,0 +1,15 @@
+.container
+{
+    border: 5px solid #1e3a8a;
+    background: grey;
+    margin: 20px;
+}
+
+.main-container {
+    background: #b3b1b1;
+    color: #1f2937;
+    line-height: 1.5;
+    border: #1e3a8a solid 4px;
+    display: flex;
+    flex-direction: column;
+}

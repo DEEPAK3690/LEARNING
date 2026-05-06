@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>CSS Box Model Demo</title>
+	<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+	<div class="container">
+		<h1>CSS Box Model</h1>
+
+		<div class="card">
+			<h2>What is the box model?</h2>
+			<p>
+				Every HTML element is treated as a rectangular box made of:
+				<strong>Content</strong> -> <strong>Padding</strong> ->
+				<strong>Border</strong> -> <strong>Margin</strong>.
+			</p>
+			<p>
+				Total width (default):
+				<code>content + left/right padding + left/right border + left/right margin</code>
+			</p>
+		</div>
+
+		<div class="card">
+			<h2>Example 1: Default box model (<code>content-box</code>)</h2>
+			<p>
+				This box has <code>width: 260px</code>, <code>padding: 20px</code>,
+				<code>border: 6px</code>, and <code>margin: 24px</code>.
+			</p>
+			<div class="example-box">I am a content-box element</div>
+			<p>
+				Width without margin = 260 + 40 + 12 = <strong>312px</strong><br />
+				Width with margin = 312 + 48 = <strong>360px</strong>
+			</p>
+		</div>
+
+		<div class="card">
+			<h2>Example 2: <code>box-sizing: border-box</code></h2>
+			<p>
+				Here <code>width: 260px</code> includes content + padding + border.
+			</p>
+			<div class="box-sizing-box">I am a border-box element</div>
+			<p>
+				Width without margin = <strong>260px</strong><br />
+				Width with margin = 260 + 48 = <strong>308px</strong>
+			</p>
+		</div>
+
+		<div class="card">
+			<h2>Display Property Examples</h2>
+			<p>
+				The <code>display</code> property controls how elements behave in layout.
+			</p>
+
+			<h3>1) Block</h3>
+			<p>Each block takes full available width and starts on a new line.</p>
+			<div class="display-demo block-demo">
+				<div class="box">Block A</div>
+				<div class="box">Block B</div>
+			</div>
+
+			<h3>2) Inline</h3>
+			<p>Inline elements stay in the same line and ignore width/height.</p>
+			<div class="display-demo inline-demo">
+				<span class="box">Inline A</span>
+				<span class="box">Inline B</span>
+				<span class="box">Inline C</span>
+			</div>
+
+			<h3>3) Inline-block</h3>
+			<p>Inline-block stays in line but still supports width and height.</p>
+			<div class="display-demo inline-block-demo">
+				<span class="box">Inline-block A</span>
+				<span class="box">Inline-block B</span>
+				<span class="box">Inline-block C</span>
+			</div>
+
+			<h3>4) None</h3>
+			<p>
+				Element with <code>display: none</code> is removed from the page layout.
+			</p>
+			<div class="display-demo none-demo">
+				<div class="box">Visible Box</div>
+				<div class="box hidden-box">Hidden Box</div>
+				<div class="box">Visible Box</div>
+			</div>
+
+			<h3>5) Flex</h3>
+			<p>Flex arranges items in one dimension (row or column).</p>
+			<div class="display-demo flex-demo">
+				<div class="box">Flex 1</div>
+				<div class="box">Flex 2</div>
+				<div class="box">Flex 3</div>
+			</div>
+
+			<h3>6) Grid</h3>
+			<p>Grid arranges items in rows and columns.</p>
+			<div class="display-demo grid-demo">
+				<div class="box">Grid 1</div>
+				<div class="box">Grid 2</div>
+				<div class="box">Grid 3</div>
+				<div class="box">Grid 4</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
