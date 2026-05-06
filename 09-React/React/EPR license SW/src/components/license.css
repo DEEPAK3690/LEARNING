@@ -74,3 +74,51 @@ span {
         width: 100%;
     }
 }
+.permanent-license{
+    padding: 0.75rem;
+    border: 1px solid #9ca3af;
+    border-radius: 0.4rem;
+    background: #f9fafb;
+    height: 100%;
+    width: 50%;
+}
+.temporary-license{
+    padding: 0.75rem;
+    border: 1px solid #9ca3af;
+    border-radius: 0.4rem;
+    background: #f9fafb;
+    width: 50%;
+}
+.update-license{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    height: 400px
+    ;
+}
+
+.permanent-license select,
+.temporary-license select {
+    width: 100%;
+    margin-top: 0.5rem;
+    padding: 0.55rem 0.65rem;
+    border: 1px solid #9ca3af;
+    border-radius: 4px;
+    background: #ffffff;
+}
+
+.permanent-license button,
+.temporary-license button {
+    margin-top: 0.75rem;
+    padding: 0.65rem 0.75rem;
+    font-size: 1.1rem;
+    border: 1px solid #9ca3af;
+    border-radius: 4px;
+    cursor: pointer;
+    background: #f3f4f6;
+}
+
+.permanent-license button:hover,
+.temporary-license button:hover {
+    background: #e5e7eb;
+}

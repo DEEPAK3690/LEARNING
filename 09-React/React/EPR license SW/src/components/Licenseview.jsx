@@ -5,7 +5,7 @@ import { useState } from "react";
 const LicenseView = () => {
     const DeviceInfo = {
         SerialNumber: "GRL-Device-001",
-        PermanentLicense: ["GRL-Permanent-License-001", "GRL-Permanent-License-002", "GRL-Permanent-License-003"],
+        PermanentLicense: ["GRL-Permanent-License-001", "GRL-Permanent-License-002", "GRL-Permanent-License-003", "GRL-Permanent-License-004", "GRL-Permanent-License-005"],
         TemporaryLicense: ["GRL-Temporary-License-001", "GRL-Temporary-License-002"],
     };
 
@@ -13,6 +13,59 @@ const LicenseView = () => {
     const [ipAddress, setIpAddress] = useState('192.168.255.1');
     const [isConnected, setIsConnected] = useState(false);
     const [deviceInfo, setDeviceInfo] = useState(DeviceInfo);
+
+    const [selectedPermanent, setSelectedPermanent] = useState("");
+    const [selectedTemporary, setSelectedTemporary] = useState("");
+    const [statusMessage, setStatusMessage] = useState("");
+
+    const [PermanentLicenses, setPermanentLicenses] = useState([]);
+    const [TemporaryLicenses, setTemporaryLicenses] = useState([]);
+
+    const addlicense = (type) => {
+        if (type === "permanent" && selectedPermanent) {
+            if (PermanentLicenses.includes(selectedPermanent)) {
+                setStatusMessage("Permanent license already added.");
+                return;
+            }
+
+            setPermanentLicenses((prev) => {
+                const updated = [...prev, selectedPermanent];
+                console.log("Permanent Licenses:", updated);
+                return updated;
+            });
+            setStatusMessage("Permanent license added.");
+        } else if (type === "temporary" && selectedTemporary) {
+            if (TemporaryLicenses.includes(selectedTemporary)) {
+                setStatusMessage("Temporary license already added.");
+                return;
+            }
+
+            setTemporaryLicenses((prev) => {
+                const updated = [...prev, selectedTemporary];
+                console.log("Temporary Licenses:", updated);
+                return updated;
+            });
+            setStatusMessage("Temporary license added.");
+        }
+    };
+
+    const removelicense = (type) => {
+        if (type === "permanent" && selectedPermanent) {
+            setPermanentLicenses((prev) => {
+                const updated = prev.filter((license) => license !== selectedPermanent);
+                console.log("Permanent Licenses:", updated);
+                return updated;
+            });
+            setStatusMessage("Permanent license removed.");
+        } else if (type === "temporary" && selectedTemporary) {
+            setTemporaryLicenses((prev) => {
+                const updated = prev.filter((license) => license !== selectedTemporary);
+                console.log("Temporary Licenses:", updated);
+                return updated;
+            });
+            setStatusMessage("Temporary license removed.");
+        }
+    };
 
     const handleConnect = () => {
         // Handle connect logic here
@@ -45,7 +98,45 @@ const LicenseView = () => {
             <div className="License-Update">
                 <h2>License Update</h2>
                 {isConnected ? (
-                    <p>Here you can update your licenses.</p>
+                    <>
+                        <div className="update-license">
+                            <div className="permanent-license">
+                                <label htmlFor="permanent-license">Add Permanent License: </label>
+                                <select
+                                    id="permanent-license"
+                                    value={selectedPermanent}
+                                    onChange={(e) => setSelectedPermanent(e.target.value)}
+                                >
+                                    <option value="">Select a permanent license</option>
+                                    <option value="GRL-Permanent-License-006">GRL-Permanent-License-006</option>
+                                    <option value="GRL-Permanent-License-007">GRL-Permanent-License-007</option>
+                                    <option value="GRL-Permanent-License-008">GRL-Permanent-License-008</option>
+                                    <option value="GRL-Permanent-License-009">GRL-Permanent-License-009</option>
+                                    <option value="GRL-Permanent-License-010">GRL-Permanent-License-010</option>
+                                </select>
+                                <button onClick={() => addlicense("permanent")}>Add</button>
+                                <button onClick={() => removelicense("permanent")}>Remove</button>
+                            </div>
+                            <div className="temporary-license">
+                                <label htmlFor="temp-license">Add Temp License: </label>
+                                <select
+                                    id="temp-license"
+                                    value={selectedTemporary}
+                                    onChange={(e) => setSelectedTemporary(e.target.value)}
+                                >
+                                    <option value="">Select a temporary license</option>
+                                    <option value="GRL-Temporary-License-003">GRL-Temporary-License-003</option>
+                                    <option value="GRL-Temporary-License-004">GRL-Temporary-License-004</option>
+                                    <option value="GRL-Temporary-License-005">GRL-Temporary-License-005</option>
+                                </select>
+                                <button onClick={() => addlicense("temporary")}>Add</button>
+                                <button onClick={() => removelicense("temporary")}>Remove</button>
+                            </div>
+                        </div>
+                        <div className="remove-license">
+                            <button>Update</button>
+                        </div>
+                    </>
                 ) : (
                     <p>Please connect to a device to update licenses.</p>
                 )}
