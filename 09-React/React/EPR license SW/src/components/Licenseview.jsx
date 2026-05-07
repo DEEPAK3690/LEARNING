@@ -20,8 +20,22 @@ const LicenseView = () => {
 
     const [PermanentLicenses, setPermanentLicenses] = useState([]);
     const [TemporaryLicenses, setTemporaryLicenses] = useState([]);
+
     const [removedPermanentLicenses, setRemovedPermanentLicenses] = useState([]);
     const [removedTemporaryLicenses, setRemovedTemporaryLicenses] = useState([]);
+
+    const [TempLicenseDate, setUpdateDate] = useState({});
+
+    const handleDateChange = (e) => {
+        const { name, value } = e.target;
+        setUpdateDate((prev) => ({ ...prev, [name]: value }));
+        console.log("Temp License Date:", { ...TempLicenseDate, [name]: value });
+    }
+
+    const updateLicense = () => {
+        // Here you would typically send the updated license information to your backend or device
+        console.log("Updating licenses with the following changes:");
+    };
 
     const addlicense = (type) => {
         if (type === "permanent" && selectedPermanent) {
@@ -157,6 +171,15 @@ const LicenseView = () => {
                                 </select>
                                 <button onClick={() => addlicense("temporary")}>Add</button>
                                 <button onClick={() => removelicense("temporary")}>Remove</button>
+                                <div>
+                                    <fieldset>
+                                        <legend>DATE: </legend>
+                                        <label htmlFor="date">FROM: </label>
+                                        <input type="date" id="date" name="from" onChange={handleDateChange}/>
+                                        <label htmlFor="date">TO: </label>
+                                        <input type="date" id="date" name="to" onChange={handleDateChange}/>
+                                    </fieldset>
+                                </div>
                             </div>
                         </div>
 
@@ -172,8 +195,8 @@ const LicenseView = () => {
                         </div>
                         {statusMessage && <p className="status-message">{statusMessage}</p>}
 
-                        <div className="remove-license">
-                            <button >Update</button>
+                        <div className="update-button">
+                            <button onClick={updateLicense}>Update License</button>
                         </div>
                     </>
                 ) : (
