@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import './license.css'
 import axios from "axios";
 
@@ -159,27 +159,6 @@ const LicenseView = () => {
                     TemporaryLicense: Array.isArray(connectData.existingTempLicense) ? connectData.existingTempLicense : [],
                 });
                 console.log('Connect API success:', connectData);
-
-                console.log('Calling licenseList API...');
-
-                const licenseResponse = await axios.get(
-                    `${BASE_URL}/api/connection/licenseList`
-                );
-                const licenseData = licenseResponse.data;
-
-                console.log('License List API success:', licenseData);
-
-                const permanentFromApi = Array.isArray(licenseData?.permanentlicense)
-                    ? licenseData.permanentlicense
-                    : [];
-
-                const temporaryFromApi = Array.isArray(licenseData?.templicense)
-                    ? licenseData.templicense
-                    : [];
-
-                setAvailablePermanentOptions(permanentFromApi);
-                setAvailableTemporaryOptions(temporaryFromApi);
-                setStatusMessage("Connected. License options loaded.");
             } else {
                 setIsConnected(false);
                 setStatusMessage("Unable to connect to target device.");
@@ -193,6 +172,34 @@ const LicenseView = () => {
             setStatusMessage("Connection failed. Check API/server and try again.");
         } finally {
             setIsConnecting(false);
+        }
+    };
+
+    // Watch isConnected state
+    useEffect(() => {
+        if (isConnected) {
+            // Fetch license list when connected
+            fetchLicenseList();
+        }
+    }, [isConnected]);  // Re-run when isConnected changes
+
+    const fetchLicenseList = async () => {
+        try {
+            const licenseResponse = await axios.get(`${BASE_URL}/api/connection/licenseList`);
+            const licenseData = licenseResponse.data;
+
+            const permanentFromApi = Array.isArray(licenseData?.permanentlicense)
+                ? licenseData.permanentlicense
+                : [];
+            const temporaryFromApi = Array.isArray(licenseData?.templicense)
+                ? licenseData.templicense
+                : [];
+
+            setAvailablePermanentOptions(permanentFromApi);
+            setAvailableTemporaryOptions(temporaryFromApi);
+        } catch (error) {
+            console.error('License List error:', error);
+            setStatusMessage("Failed to load license options.");
         }
     };
 
