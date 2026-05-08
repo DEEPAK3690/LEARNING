@@ -1,0 +1,424 @@
+
+      /* ─── Reset ──────────────────────────────────────────── */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background: #f1f5f9;
+        color: #1f2937;
+        padding: 32px 16px;
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 40px;
+        font-size: 2rem;
+        color: #1e3a8a;
+      }
+
+      /* ── Section wrapper ─────────────────────────────────── */
+      .section {
+        background: #fff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 24px;
+        margin-bottom: 32px;
+        max-width: 860px;
+        margin-inline: auto;
+      }
+
+      .section h2 {
+        font-size: 1.1rem;
+        color: #1e3a8a;
+        margin-bottom: 6px;
+      }
+
+      .section .label {
+        font-size: 0.82rem;
+        background: #eef2ff;
+        color: #4338ca;
+        padding: 2px 8px;
+        border-radius: 4px;
+        display: inline-block;
+        margin-bottom: 16px;
+        font-family: monospace;
+      }
+
+      /* ═══════════════════════════════════════════════════════
+         EXAMPLE 1 — Descendant selector  (space)
+         Targets ALL matching elements at ANY depth
+         ═══════════════════════════════════════════════════════ */
+
+      /* Every <p> anywhere inside .ex1-box turns blue */
+      .ex1-box p {
+        color: #2563eb;
+        margin: 6px 0;
+      }
+
+      /* ═══════════════════════════════════════════════════════
+         EXAMPLE 2 — Direct-child selector  (>)
+         Targets ONLY immediate children, not grandchildren
+         ═══════════════════════════════════════════════════════ */
+
+      /* Only the <p> that is a DIRECT child of .ex2-outer turns green.
+         The nested <p> inside .ex2-inner does NOT change. */
+      .ex2-outer > p {
+        color: #16a34a;
+        font-weight: 600;
+      }
+
+      /* ═══════════════════════════════════════════════════════
+         EXAMPLE 3 — Two-level nesting
+         .grandparent  .parent  .child
+         ═══════════════════════════════════════════════════════ */
+
+      .ex3-page .ex3-section .ex3-card {
+        background: #dbeafe;
+        border: 2px solid #2563eb;
+        border-radius: 8px;
+        padding: 12px;
+        margin: 8px 0;
+      }
+
+      /* Only the <h3> inside .ex3-card changes */
+      .ex3-page .ex3-section .ex3-card h3 {
+        color: #1e3a8a;
+        font-size: 1rem;
+      }
+
+      /* Only the <p> inside .ex3-card changes */
+      .ex3-page .ex3-section .ex3-card p {
+        color: #374151;
+        font-size: 0.9rem;
+        margin-top: 4px;
+      }
+
+      /* ═══════════════════════════════════════════════════════
+         EXAMPLE 4 — Mixing  space  and  >
+         "Any .ex4-item descendant, but only its DIRECT <span>"
+         ═══════════════════════════════════════════════════════ */
+
+      /* <span> at any depth inside .ex4-list gets purple */
+      .ex4-list span {
+        color: #7c3aed;
+      }
+
+      /* ONLY the direct <span> of .ex4-item gets a background */
+      .ex4-list .ex4-item > span {
+        background: #ede9fe;
+        padding: 2px 6px;
+        border-radius: 4px;
+      }
+
+      /* ═══════════════════════════════════════════════════════
+         EXAMPLE 5 — Profile-card real-world structure
+         (matches your App.jsx layout)
+         ═══════════════════════════════════════════════════════ */
+
+      .ex5-app .ex5-card-grid {
+        display: flex;
+        gap: 16px;
+        flex-direction: column;
+        /* flex-wrap: wrap; */
+      }
+
+      /* Every card in the grid */
+      .ex5-app .ex5-card-grid .ex5-profile-card {
+        background: #fff;
+        border: 1px solid #cbd5e1;
+        border-radius: 12px;
+        padding: 16px;
+        width: 200px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+      }
+
+      /* Image inside the card */
+      .ex5-app .ex5-card-grid .ex5-profile-card > img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      /* card-body sits inside the card */
+      .ex5-app .ex5-card-grid .ex5-profile-card .ex5-card-body h3 {
+        font-size: 1rem;
+        color: #111827;
+      }
+
+      .ex5-app .ex5-card-grid .ex5-profile-card .ex5-card-body .ex5-role {
+        font-size: 0.8rem;
+        color: #6b7280;
+        margin-top: 2px;
+      }
+
+      .ex5-app .ex5-card-grid .ex5-profile-card .ex5-card-body .ex5-bio {
+        font-size: 0.78rem;
+        color: #374151;
+        margin-top: 6px;
+        line-height: 1.4;
+      }
+
+      /* ═══════════════════════════════════════════════════════
+         EXAMPLE 6 — Why specificity matters
+         Same element styled by short and long selectors
+         ═══════════════════════════════════════════════════════ */
+
+      /* Short: turns all .ex6-text red  */
+      .ex6-text {
+        color: #dc2626;
+      }
+
+      /* Longer path wins — overrides red with green */
+      .ex6-wrapper .ex6-inner .ex6-text {
+        color: #16a34a;
+      }
+
+      /* Even more specific — wins over green */
+      .ex6-wrapper > .ex6-inner > .ex6-text {
+        color: #7c3aed;
+        font-weight: 700;
+      }
+
+      /* ═══════════════════════════════════════════════════════
+         EXAMPLE 7 — Horizontal layout (Flexbox row)
+         ═══════════════════════════════════════════════════════ */
+
+      /* Parent: row direction */
+      .ex7-row {
+        display: flex;
+        flex-direction: row;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 12px;
+      }
+
+      /* Direct children share equal width */
+      .ex7-row > .ex7-item {
+        flex: 1;
+        min-width: 120px;
+        border-radius: 10px;
+        padding: 14px 12px;
+        text-align: center;
+        border: 2px solid transparent;
+      }
+
+      /* Style each child differently using parent > child path */
+      .ex7-row > .ex7-item p {
+        font-weight: 700;
+        font-size: 1rem;
+        margin: 6px 0 2px;
+      }
+
+      .ex7-row > .ex7-item small {
+        font-size: 0.75rem;
+        opacity: 0.75;
+      }
+
+      .ex7-item--red    { background: #fee2e2; border-color: #dc2626; color: #7f1d1d; }
+      .ex7-item--green  { background: #dcfce7; border-color: #16a34a; color: #14532d; }
+      .ex7-item--blue   { background: #dbeafe; border-color: #2563eb; color: #1e3a8a; }
+      .ex7-item--purple { background: #ede9fe; border-color: #7c3aed; color: #4c1d95; }
+
+      /* ═══════════════════════════════════════════════════════
+         EXAMPLE 8 — Vertical layout (Flexbox column)
+         ═══════════════════════════════════════════════════════ */
+
+      /* Outer wrapper: puts nav and form side by side */
+      .ex8-wrapper {
+        display: flex;
+        gap: 24px;
+        flex-wrap: wrap;
+        margin-top: 12px;
+      }
+
+      /* Both .ex8-nav and .ex8-form are columns */
+      .ex8-col {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      /* ── Vertical nav ── */
+      .ex8-nav {
+        background: #1e3a8a;
+        border-radius: 12px;
+        padding: 16px;
+        min-width: 160px;
+      }
+
+      /* Direct children of .ex8-nav */
+      .ex8-nav > .ex8-nav-item {
+        color: #bfdbfe;
+        text-decoration: none;
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        transition: background 0.2s;
+      }
+
+      .ex8-nav > .ex8-nav-item:hover {
+        background: #1d4ed8;
+        color: #fff;
+      }
+
+      /* Active item — longer path wins */
+      .ex8-nav > .ex8-nav-item--active {
+        background: #2563eb;
+        color: #fff;
+        font-weight: 600;
+      }
+
+      /* ── Vertical form ── */
+      .ex8-form {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 16px;
+        min-width: 220px;
+      }
+
+      /* Direct label children of .ex8-form */
+      .ex8-form > .ex8-form-label {
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: #374151;
+      }
+
+      /* Direct input children of .ex8-form */
+      .ex8-form > .ex8-form-input {
+        padding: 8px 10px;
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
+        font-size: 0.88rem;
+        outline: none;
+      }
+
+      .ex8-form > .ex8-form-input:focus {
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px #dbeafe;
+      }
+
+      /* Direct button child of .ex8-form */
+      .ex8-form > .ex8-form-btn {
+        margin-top: 4px;
+        background: #2563eb;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        padding: 9px 16px;
+        cursor: pointer;
+        font-size: 0.88rem;
+        font-weight: 600;
+      }
+
+      /* ═══════════════════════════════════════════════════════
+         EXAMPLE 9 — Combined row + column
+         ═══════════════════════════════════════════════════════ */
+
+      /* Parent: horizontal row */
+      .ex9-row {
+        display: flex;
+        flex-direction: row;
+        gap: 16px;
+        flex-wrap: wrap;
+        margin-top: 12px;
+      }
+
+      /* Each card: vertical column */
+      .ex9-row > .ex9-card {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        min-width: 180px;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+      }
+
+      /* Header — direct child of .ex9-card */
+      .ex9-row > .ex9-card > .ex9-card__header {
+        background: #1e3a8a;
+        color: #fff;
+        padding: 12px 16px;
+        font-weight: 700;
+        font-size: 0.95rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      /* Body — grows to fill remaining height */
+      .ex9-row > .ex9-card > .ex9-card__body {
+        padding: 14px 16px;
+        flex: 1;
+        background: #fff;
+      }
+
+      /* Paragraph inside body */
+      .ex9-row > .ex9-card > .ex9-card__body > p {
+        font-size: 0.88rem;
+        color: #374151;
+        line-height: 1.5;
+      }
+
+      /* Footer — always at bottom */
+      .ex9-row > .ex9-card > .ex9-card__footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 16px;
+        background: #f8fafc;
+        border-top: 1px solid #e2e8f0;
+      }
+
+      /* Badge inside footer */
+      .ex9-row > .ex9-card > .ex9-card__footer > .ex9-badge {
+        font-size: 0.72rem;
+        padding: 3px 8px;
+        border-radius: 999px;
+        font-weight: 600;
+        background: #dcfce7;
+        color: #14532d;
+      }
+
+      .ex9-badge--mid { background: #fef9c3; color: #713f12; }
+      .ex9-badge--adv { background: #fee2e2; color: #7f1d1d; }
+
+      /* Button inside footer */
+      .ex9-row > .ex9-card > .ex9-card__footer > .ex9-btn {
+        background: #2563eb;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        padding: 6px 14px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      /* ── Demo helpers ────────────────────────────────────── */
+      .box {
+        border: 1px dashed #94a3b8;
+        border-radius: 6px;
+        padding: 10px 14px;
+        margin: 4px 0;
+        font-size: 0.88rem;
+      }
+      .tag {
+        font-size: 0.7rem;
+        background: #f1f5f9;
+        border: 1px solid #cbd5e1;
+        color: #475569;
+        padding: 1px 5px;
+        border-radius: 3px;
+        margin-right: 4px;
+        font-family: monospace;
+      }

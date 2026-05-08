@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Parent & Child Selectors</title>
+    <link rel="stylesheet" href="cssStyles.css" />
+  </head>
+  <body>
+    <h1>CSS Parent &amp; Child Selector Examples</h1>
+
+    <!-- ══════════════════════════════════════════════
+         EXAMPLE 1 — Descendant selector (space)
+         ══════════════════════════════════════════════ -->
+    <div class="section">
+      <h2>Example 1 — Descendant Selector (space)</h2>
+      <span class="label">.ex1-box p { color: blue }</span>
+      <p>Every &lt;p&gt; at <strong>any depth</strong> inside .ex1-box turns blue.</p>
+
+      <div class="ex1-box box" style="margin-top:12px">
+        <span class="tag">.ex1-box</span>
+        <p><span class="tag">p</span> I am a direct child paragraph → blue ✓</p>
+        <div class="box">
+          <span class="tag">div</span>
+          <p><span class="tag">p</span> I am a grandchild paragraph → also blue ✓</p>
+          <div class="box">
+            <span class="tag">div</span>
+            <p><span class="tag">p</span> I am a great-grandchild → still blue ✓</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         EXAMPLE 2 — Direct-child selector (>)
+         ══════════════════════════════════════════════ -->
+    <div class="section">
+      <h2>Example 2 — Direct-Child Selector (&gt;)</h2>
+      <span class="label">.ex2-outer &gt; p { color: green }</span>
+      <p>Only the <strong>immediate child</strong> &lt;p&gt; changes. Nested ones stay black.</p>
+
+      <div class="ex2-outer box" style="margin-top:12px">
+        <span class="tag">.ex2-outer</span>
+        <p><span class="tag">p (direct child)</span> I am a direct child → green ✓</p>
+
+        <div class="ex2-inner box">
+          <span class="tag">.ex2-inner (div)</span>
+          <p><span class="tag">p (grandchild)</span> I am a grandchild → stays black ✗</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         EXAMPLE 3 — Two-level nesting
+         ══════════════════════════════════════════════ -->
+    <div class="section">
+      <h2>Example 3 — Three Levels Deep</h2>
+      <span class="label">.ex3-page .ex3-section .ex3-card h3/p</span>
+      <p>Read left → right: page → section → card → element.</p>
+
+      <div class="ex3-page box" style="margin-top:12px">
+        <span class="tag">.ex3-page</span>
+
+        <div class="ex3-section box">
+          <span class="tag">.ex3-section</span>
+
+          <div class="ex3-card">
+            <h3><span class="tag">h3</span> Card Title — styled ✓</h3>
+            <p><span class="tag">p</span> Card description text — styled ✓</p>
+          </div>
+
+          <div class="ex3-card">
+            <h3><span class="tag">h3</span> Another Card — also styled ✓</h3>
+            <p><span class="tag">p</span> Both cards get the same styles ✓</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         EXAMPLE 4 — Mixing space and >
+         ══════════════════════════════════════════════ -->
+    <div class="section">
+      <h2>Example 4 — Mixing Descendant &amp; Direct-Child</h2>
+      <span class="label">.ex4-list span → purple &nbsp;|&nbsp; .ex4-item &gt; span → adds background</span>
+
+      <ul class="ex4-list box" style="margin-top:12px; list-style:none">
+        <span class="tag">.ex4-list</span>
+
+        <li class="ex4-item box">
+          <span class="tag">.ex4-item</span>
+          <span>Direct child span → purple + background ✓</span>
+          <div class="box">
+            <span class="tag">div (nested)</span>
+            <span>Grandchild span → purple only, NO background ✓</span>
+          </div>
+        </li>
+
+        <li class="ex4-item box">
+          <span class="tag">.ex4-item</span>
+          <span>Another direct child span → purple + background ✓</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         EXAMPLE 5 — Real-world profile card
+         ══════════════════════════════════════════════ -->
+    <div class="section">
+      <h2>Example 5 — Real-World: Profile Card Layout</h2>
+      <span class="label">.ex5-app .ex5-card-grid .ex5-profile-card .ex5-card-body h3/role/bio</span>
+
+      <div class="ex5-app" style="margin-top:12px">
+        <div class="ex5-card-grid">
+
+          <div class="ex5-profile-card">
+            <img
+              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120"
+              alt="Aarav"
+            />
+            <div class="ex5-card-body">
+              <h3>Aarav</h3>
+              <p class="ex5-role">Beginner React Developer</p>
+              <p class="ex5-bio">Learning React by building small real projects.</p>
+            </div>
+          </div>
+
+          <div class="ex5-profile-card">
+            <img
+              src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120"
+              alt="Noah"
+            />
+            <div class="ex5-card-body">
+              <h3>Noah</h3>
+              <p class="ex5-role">UI Explorer</p>
+              <p class="ex5-bio">Turning simple ideas into working React apps.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         EXAMPLE 6 — Specificity: short vs long path
+         ══════════════════════════════════════════════ -->
+    <div class="section">
+      <h2>Example 6 — Specificity: Short vs Long Selectors</h2>
+      <span class="label">.ex6-text → red &nbsp;|&nbsp; .wrapper .inner .ex6-text → green &nbsp;|&nbsp; > > → purple wins</span>
+      <p style="margin-bottom:12px">Longer (more specific) selectors override shorter ones, even if written first.</p>
+
+      <div class="ex6-wrapper box">
+        <span class="tag">.ex6-wrapper</span>
+        <div class="ex6-inner box">
+          <span class="tag">.ex6-inner</span>
+          <p class="ex6-text box">
+            <span class="tag">.ex6-text</span>
+            I should be RED (.ex6-text alone), but the longer path overrides me → PURPLE ✓
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         EXAMPLE 7 — Horizontal layout (Flexbox row)
+         ══════════════════════════════════════════════ -->
+    <div class="section">
+      <h2>Example 7 — Horizontal Layout (Flexbox Row)</h2>
+      <span class="label">.ex7-row { display:flex; flex-direction:row }</span>
+      <p style="margin-bottom:12px">
+        Parent uses <code>display:flex</code>. Direct child items line up
+        <strong>side by side</strong>. Each child can be styled independently.
+      </p>
+
+      <!-- Structure: .ex7-row > .ex7-item -->
+      <div class="ex7-row">
+        <div class="ex7-item ex7-item--red">
+          <span class="tag">.ex7-item</span>
+          <p>Item 1</p>
+          <small>flex child</small>
+        </div>
+        <div class="ex7-item ex7-item--green">
+          <span class="tag">.ex7-item</span>
+          <p>Item 2</p>
+          <small>flex child</small>
+        </div>
+        <div class="ex7-item ex7-item--blue">
+          <span class="tag">.ex7-item</span>
+          <p>Item 3</p>
+          <small>flex child</small>
+        </div>
+        <div class="ex7-item ex7-item--purple">
+          <span class="tag">.ex7-item</span>
+          <p>Item 4</p>
+          <small>flex child</small>
+        </div>
+      </div>
+
+      <p style="margin-top:14px; font-size:0.85rem; color:#475569">
+        CSS used: <code>.ex7-row { display:flex; gap:12px }</code> &nbsp;|&nbsp;
+        <code>.ex7-row &gt; .ex7-item { flex:1 }</code> — each child shares equal width.
+      </p>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         EXAMPLE 8 — Vertical layout (Flexbox column)
+         ══════════════════════════════════════════════ -->
+    <div class="section">
+      <h2>Example 8 — Vertical Layout (Flexbox Column)</h2>
+      <span class="label">.ex8-col { display:flex; flex-direction:column }</span>
+      <p style="margin-bottom:12px">
+        Same idea as row, but children stack <strong>top to bottom</strong>.
+        Useful for sidebars, form fields, card bodies.
+      </p>
+
+      <div class="ex8-wrapper">
+        <!-- LEFT: vertical nav -->
+        <div class="ex8-col ex8-nav">
+          <span class="tag">.ex8-nav (column)</span>
+          <a class="ex8-nav-item" href="#">🏠 Home</a>
+          <a class="ex8-nav-item" href="#">👤 Profile</a>
+          <a class="ex8-nav-item" href="#">⚙️ Settings</a>
+          <a class="ex8-nav-item ex8-nav-item--active" href="#">📄 Docs</a>
+        </div>
+
+        <!-- RIGHT: vertical form -->
+        <div class="ex8-col ex8-form">
+          <span class="tag">.ex8-form (column)</span>
+          <label class="ex8-form-label">Name</label>
+          <input class="ex8-form-input" type="text" placeholder="Enter name" />
+          <label class="ex8-form-label">Role</label>
+          <input class="ex8-form-input" type="text" placeholder="Enter role" />
+          <button class="ex8-form-btn">Submit</button>
+        </div>
+      </div>
+
+      <p style="margin-top:14px; font-size:0.85rem; color:#475569">
+        CSS used: <code>.ex8-col { display:flex; flex-direction:column; gap:8px }</code> &nbsp;|&nbsp;
+        <code>.ex8-col &gt; .ex8-nav-item</code> and <code>.ex8-col &gt; .ex8-form-label</code> target direct children only.
+      </p>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         EXAMPLE 9 — Horizontal + Vertical combined
+         (Row of cards, each card stacked vertically)
+         ══════════════════════════════════════════════ -->
+    <div class="section">
+      <h2>Example 9 — Combined: Row of Vertically Stacked Cards</h2>
+      <span class="label">.ex9-row { flex-direction:row } &nbsp;|&nbsp; .ex9-card { flex-direction:column }</span>
+      <p style="margin-bottom:12px">
+        Parent row is <strong>horizontal</strong>. Each card child is
+        <strong>vertical</strong> inside. This is the most common real-world pattern.
+      </p>
+
+      <!-- .ex9-row (horizontal) > .ex9-card (vertical) > .ex9-card__header / body / footer -->
+      <div class="ex9-row">
+        <div class="ex9-card">
+          <div class="ex9-card__header"><span class="tag">__header</span> 🎨 Design</div>
+          <div class="ex9-card__body">
+            <p>Learn Figma and CSS to build great UIs.</p>
+          </div>
+          <div class="ex9-card__footer">
+            <span class="ex9-badge">Beginner</span>
+            <button class="ex9-btn">Start</button>
+          </div>
+        </div>
+
+        <div class="ex9-card">
+          <div class="ex9-card__header"><span class="tag">__header</span> ⚛️ React</div>
+          <div class="ex9-card__body">
+            <p>Components, props, state and hooks.</p>
+          </div>
+          <div class="ex9-card__footer">
+            <span class="ex9-badge ex9-badge--mid">Intermediate</span>
+            <button class="ex9-btn">Start</button>
+          </div>
+        </div>
+
+        <div class="ex9-card">
+          <div class="ex9-card__header"><span class="tag">__header</span> 🗄️ Node</div>
+          <div class="ex9-card__body">
+            <p>Build REST APIs with Express and Node.js.</p>
+          </div>
+          <div class="ex9-card__footer">
+            <span class="ex9-badge ex9-badge--adv">Advanced</span>
+            <button class="ex9-btn">Start</button>
+          </div>
+        </div>
+      </div>
+
+      <p style="margin-top:14px; font-size:0.85rem; color:#475569">
+        Selector chain: <code>.ex9-row &gt; .ex9-card &gt; .ex9-card__footer &gt; .ex9-btn</code>
+      </p>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         CHEAT SHEET
+         ══════════════════════════════════════════════ -->
+    <div class="section">
+      <h2>Quick Cheat Sheet</h2>
+      <table style="width:100%; border-collapse:collapse; font-size:0.88rem; margin-top:10px">
+        <thead>
+          <tr style="background:#eef2ff">
+            <th style="padding:10px; border:1px solid #c7d2fe; text-align:left">Selector</th>
+            <th style="padding:10px; border:1px solid #c7d2fe; text-align:left">Meaning</th>
+            <th style="padding:10px; border:1px solid #c7d2fe; text-align:left">Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:10px; border:1px solid #e2e8f0"><code>.a b</code></td>
+            <td style="padding:10px; border:1px solid #e2e8f0">Any <code>b</code> inside <code>.a</code> (any depth)</td>
+            <td style="padding:10px; border:1px solid #e2e8f0"><code>.card p</code></td>
+          </tr>
+          <tr style="background:#f8fafc">
+            <td style="padding:10px; border:1px solid #e2e8f0"><code>.a &gt; b</code></td>
+            <td style="padding:10px; border:1px solid #e2e8f0">Only DIRECT child <code>b</code> of <code>.a</code></td>
+            <td style="padding:10px; border:1px solid #e2e8f0"><code>.card &gt; p</code></td>
+          </tr>
+          <tr>
+            <td style="padding:10px; border:1px solid #e2e8f0"><code>.a .b .c</code></td>
+            <td style="padding:10px; border:1px solid #e2e8f0">3-level nesting: <code>.c</code> inside <code>.b</code> inside <code>.a</code></td>
+            <td style="padding:10px; border:1px solid #e2e8f0"><code>.app .grid .card</code></td>
+          </tr>
+          <tr style="background:#f8fafc">
+            <td style="padding:10px; border:1px solid #e2e8f0"><code>.a .b &gt; c</code></td>
+            <td style="padding:10px; border:1px solid #e2e8f0">Mix: <code>c</code> is a direct child of <code>.b</code>, anywhere in <code>.a</code></td>
+            <td style="padding:10px; border:1px solid #e2e8f0"><code>.list .item &gt; span</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

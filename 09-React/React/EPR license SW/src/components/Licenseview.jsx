@@ -1,12 +1,13 @@
 import React from "react";
 import './license.css'
 import { useState } from "react";
+import axios from "axios";
 
 const LicenseView = () => {
     const DeviceInfo = {
-        SerialNumber: "GRL-Device-001",
-        PermanentLicense: ["GRL-Permanent-License-001", "GRL-Permanent-License-002", "GRL-Permanent-License-003", "GRL-Permanent-License-004", "GRL-Permanent-License-005"],
-        TemporaryLicense: ["GRL-Temporary-License-001", "GRL-Temporary-License-002"],
+        SerialNumber: " ",
+        PermanentLicense: [],
+        TemporaryLicense: [],
     };
 
 
@@ -107,9 +108,21 @@ const LicenseView = () => {
         }
     };
 
-    const handleConnect = () => {
-        // Handle connect logic here
-        setIsConnected(true);
+    const handleConnect = async () => {
+        try {
+            const { data } = await axios.post(
+                'https://localhost:7178/api/connection/connect',
+                { ipAddress }  // Automatic JSON conversion
+            );
+
+            if (data.isConnected) {
+                setIsConnected(true);
+                setDeviceInfo({data , ...data});  
+                console.log('Connected to device:', data);
+            }
+        } catch (error) {
+            console.error('Error:', error);  // Automatic error handling
+        }
     };
 
     return (
@@ -124,9 +137,9 @@ const LicenseView = () => {
                     onChange={(e) => setIpAddress(e.target.value)}
                 />
                 <button onClick={handleConnect}>Connect</button>
-                {isConnected && <p>Connected to {ipAddress}</p>}
+                {isConnected ? <p>Connected to {ipAddress}</p> : <p>Not connected</p>}
 
-                {isConnected && (
+                {deviceInfo && (
                     <div className="License-info">
                         <h2>License Information</h2>
                         <p>Serial Number: {deviceInfo.SerialNumber}</p>
@@ -175,9 +188,9 @@ const LicenseView = () => {
                                     <fieldset>
                                         <legend>DATE: </legend>
                                         <label htmlFor="date">FROM: </label>
-                                        <input type="date" id="date" name="from" onChange={handleDateChange}/>
+                                        <input type="date" id="date" name="from" onChange={handleDateChange} />
                                         <label htmlFor="date">TO: </label>
-                                        <input type="date" id="date" name="to" onChange={handleDateChange}/>
+                                        <input type="date" id="date" name="to" onChange={handleDateChange} />
                                     </fieldset>
                                 </div>
                             </div>
