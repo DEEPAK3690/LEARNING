@@ -4,16 +4,10 @@ import { useState } from "react";
 import axios from "axios";
 
 const LicenseView = () => {
-    const DeviceInfo = {
-        SerialNumber: " ",
-        PermanentLicense: [],
-        TemporaryLicense: [],
-    };
-
 
     const [ipAddress, setIpAddress] = useState('192.168.255.1');
     const [isConnected, setIsConnected] = useState(false);
-    const [deviceInfo, setDeviceInfo] = useState(DeviceInfo);
+    const [deviceInfo, setDeviceInfo] = useState({});
 
     const [selectedPermanent, setSelectedPermanent] = useState("");
     const [selectedTemporary, setSelectedTemporary] = useState("");
@@ -110,15 +104,29 @@ const LicenseView = () => {
 
     const handleConnect = async () => {
         try {
-            const { data } = await axios.post(
+            const connectResponse = await axios.post(
                 'https://localhost:7178/api/connection/connect',
                 { ipAddress }  // Automatic JSON conversion
             );
+            const connectData = connectResponse.data;
 
-            if (data.isConnected) {
+            if (connectData?.isConnected) {
                 setIsConnected(true);
-                setDeviceInfo({data , ...data});  
-                console.log('Connected to device:', data);
+                setDeviceInfo({
+                    SerialNumber: connectData.serialNumber || "",
+                    PermanentLicense: Array.isArray(connectData.existingLicense) ? connectData.existingLicense : [],
+                    TemporaryLicense: Array.isArray(connectData.existingTempLicense) ? connectData.existingTempLicense : [],
+                });
+                console.log('Connect API success:', connectData);
+
+                console.log('Calling licenseList API...');
+
+                const licenseResponse = await axios.get(
+                    'https://localhost:7178/api/connection/licenseList'
+                );
+                const licenseData = licenseResponse.data;
+
+                console.log('License List API success:', licenseData);
             }
         } catch (error) {
             console.error('Error:', error);  // Automatic error handling
@@ -142,9 +150,9 @@ const LicenseView = () => {
                 {deviceInfo && (
                     <div className="License-info">
                         <h2>License Information</h2>
-                        <p>Serial Number: {deviceInfo.SerialNumber}</p>
-                        <p><span>Permanent Licenses:</span> {deviceInfo.PermanentLicense.join(", ")}</p>
-                        <p><span>Temporary Licenses:</span> {deviceInfo.TemporaryLicense.join(", ")}</p>
+                        <p>Serial Number: {deviceInfo?.SerialNumber || "N/A"}</p>
+                        <p><span>Permanent Licenses:</span> {(deviceInfo?.PermanentLicense ?? []).join(", ") || "None"}</p>
+                        <p><span>Temporary Licenses:</span> {(deviceInfo?.TemporaryLicense ?? []).join(", ") || "None"}</p>
                     </div>)}
             </div>
 
