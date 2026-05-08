@@ -15,6 +15,8 @@ const LicenseView = () => {
 
     const [PermanentLicenses, setPermanentLicenses] = useState([]);
     const [TemporaryLicenses, setTemporaryLicenses] = useState([]);
+    const [availablePermanentOptions, setAvailablePermanentOptions] = useState([]);
+    const [availableTemporaryOptions, setAvailableTemporaryOptions] = useState([]);
 
     const [removedPermanentLicenses, setRemovedPermanentLicenses] = useState([]);
     const [removedTemporaryLicenses, setRemovedTemporaryLicenses] = useState([]);
@@ -27,9 +29,16 @@ const LicenseView = () => {
         console.log("Temp License Date:", { ...TempLicenseDate, [name]: value });
     }
 
-    const updateLicense = () => {
-        // Here you would typically send the updated license information to your backend or device
-        console.log("Updating licenses with the following changes:");
+    const updateLicense = async () => {
+        const { from, to } = TempLicenseDate;
+        const connectResponse = await axios.post(
+            'https://localhost:7178/api/connection/updateLicense',
+            {
+                PermanentLicenses, TemporaryLicenses, validFrom: from,
+                validTo: to
+            }  // Automatic JSON conversion
+        );
+
     };
 
     const addlicense = (type) => {
@@ -127,6 +136,17 @@ const LicenseView = () => {
                 const licenseData = licenseResponse.data;
 
                 console.log('License List API success:', licenseData);
+
+                const permanentFromApi = Array.isArray(licenseData?.permanentlicense)
+                    ? licenseData.permanentlicense
+                    : [];
+
+                const temporaryFromApi = Array.isArray(licenseData?.templicense)
+                    ? licenseData.templicense
+                    : [];
+
+                setAvailablePermanentOptions(permanentFromApi);
+                setAvailableTemporaryOptions(temporaryFromApi);
             }
         } catch (error) {
             console.error('Error:', error);  // Automatic error handling
@@ -169,11 +189,9 @@ const LicenseView = () => {
                                     onChange={(e) => setSelectedPermanent(e.target.value)}
                                 >
                                     <option value="">Select a permanent license</option>
-                                    <option value="GRL-Permanent-License-006">GRL-Permanent-License-006</option>
-                                    <option value="GRL-Permanent-License-007">GRL-Permanent-License-007</option>
-                                    <option value="GRL-Permanent-License-008">GRL-Permanent-License-008</option>
-                                    <option value="GRL-Permanent-License-009">GRL-Permanent-License-009</option>
-                                    <option value="GRL-Permanent-License-010">GRL-Permanent-License-010</option>
+                                    {availablePermanentOptions.map((license) => (
+                                        <option key={license} value={license}>{license}</option>
+                                    ))}
                                 </select>
                                 <button onClick={() => addlicense("permanent")}>Add</button>
                                 <button onClick={() => removelicense("permanent")}>Remove</button>
@@ -186,9 +204,9 @@ const LicenseView = () => {
                                     onChange={(e) => setSelectedTemporary(e.target.value)}
                                 >
                                     <option value="">Select a temporary license</option>
-                                    <option value="GRL-Temporary-License-003">GRL-Temporary-License-003</option>
-                                    <option value="GRL-Temporary-License-004">GRL-Temporary-License-004</option>
-                                    <option value="GRL-Temporary-License-005">GRL-Temporary-License-005</option>
+                                    {availableTemporaryOptions.map((license) => (
+                                        <option key={license} value={license}>{license}</option>
+                                    ))}
                                 </select>
                                 <button onClick={() => addlicense("temporary")}>Add</button>
                                 <button onClick={() => removelicense("temporary")}>Remove</button>
