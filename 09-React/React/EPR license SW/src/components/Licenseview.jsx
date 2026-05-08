@@ -1,7 +1,8 @@
-import React from "react";
-import './license.css'
 import { useState } from "react";
+import './license.css'
 import axios from "axios";
+
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const LicenseView = () => {
 
@@ -30,15 +31,18 @@ const LicenseView = () => {
     }
 
     const updateLicense = async () => {
-        const { from, to } = TempLicenseDate;
-        const connectResponse = await axios.post(
-            'https://localhost:7178/api/connection/updateLicense',
-            {
-                PermanentLicenses, TemporaryLicenses, validFrom: from,
-                validTo: to
-            }  // Automatic JSON conversion
-        );
-
+        try {
+            const { from, to } = TempLicenseDate;
+            const response = await axios.post(
+                `${BASE_URL}/api/connection/updateLicense`,
+                { PermanentLicenses, TemporaryLicenses, validFrom: from, validTo: to }
+            );
+            console.log('Update License success:', response.data);
+            setStatusMessage("License updated successfully.");
+        } catch (error) {
+            console.error('Update License error:', error);
+            setStatusMessage("Failed to update license. Please try again.");
+        }
     };
 
     const addlicense = (type) => {
@@ -114,7 +118,7 @@ const LicenseView = () => {
     const handleConnect = async () => {
         try {
             const connectResponse = await axios.post(
-                'https://localhost:7178/api/connection/connect',
+                `${BASE_URL}/api/connection/connect`,
                 { ipAddress }  // Automatic JSON conversion
             );
             const connectData = connectResponse.data;
@@ -131,7 +135,7 @@ const LicenseView = () => {
                 console.log('Calling licenseList API...');
 
                 const licenseResponse = await axios.get(
-                    'https://localhost:7178/api/connection/licenseList'
+                    `${BASE_URL}/api/connection/licenseList`
                 );
                 const licenseData = licenseResponse.data;
 
@@ -213,10 +217,10 @@ const LicenseView = () => {
                                 <div>
                                     <fieldset>
                                         <legend>DATE: </legend>
-                                        <label htmlFor="date">FROM: </label>
-                                        <input type="date" id="date" name="from" onChange={handleDateChange} />
-                                        <label htmlFor="date">TO: </label>
-                                        <input type="date" id="date" name="to" onChange={handleDateChange} />
+                                        <label htmlFor="date-from">FROM: </label>
+                                        <input type="date" id="date-from" name="from" onChange={handleDateChange} />
+                                        <label htmlFor="date-to">TO: </label>
+                                        <input type="date" id="date-to" name="to" onChange={handleDateChange} />
                                     </fieldset>
                                 </div>
                             </div>

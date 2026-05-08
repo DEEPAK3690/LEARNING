@@ -1,6 +1,4 @@
-import React from "react";
 import './Header.css'
-import { useState } from "react";
 
 
 const Header = ({isLoggedIn, setIsLoggedIn}) => {
