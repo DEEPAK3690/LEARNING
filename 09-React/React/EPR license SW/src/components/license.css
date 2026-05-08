@@ -1,55 +1,78 @@
 .License-view-main {
     display: grid;
-    grid-template-columns: 360px minmax(0, 1fr);
+    grid-template-columns: minmax(290px, 340px) minmax(0, 1fr);
     gap: 1rem;
     width: 100%;
-    min-height: calc(100vh - 100px);
-    padding: 1rem;
-    background: #d4d4d4;
+    min-height: calc(100vh - 150px);
+    padding: 0.25rem;
 }
 
 .Connection-view {
-    width: 360px;
+    width: 100%;
     max-width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 0.9rem;
-    padding: 1.5rem;
-    border: 1px solid #1f2937;
-    border-radius: 0.5rem;
-    background: #e5e7eb;
+    gap: 0.85rem;
+    padding: 1.25rem;
+    border: 1px solid #d7e1ec;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
 }
 
 .Connection-view label {
-    font-size: 1.2rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #334155;
 }
 
 .Connection-view input,
 .Connection-view button {
     width: 100%;
-    padding: 0.65rem 0.75rem;
-    font-size: 1.1rem;
-    border: 1px solid #9ca3af;
-    border-radius: 4px;
+    padding: 0.65rem 0.78rem;
+    font-size: 0.95rem;
+    border: 1px solid #c7d4e2;
+    border-radius: 10px;
+}
+
+.Connection-view input:focus,
+.permanent-license select:focus,
+.temporary-license select:focus,
+input[type="date"]:focus {
+    outline: none;
+    border-color: #0f766e;
+    box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.15);
 }
 
 .Connection-view button {
     cursor: pointer;
-    background: #f3f4f6;
+    background: linear-gradient(135deg, #0f766e 0%, #115e59 100%);
+    color: #ffffff;
+    border: 0;
+    font-weight: 600;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .Connection-view button:hover {
-    background: #e5e7eb;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 20px rgba(15, 118, 110, 0.2);
+}
+
+.Connection-view button:disabled {
+    opacity: 0.68;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
 }
 
 .License-info {
     display: flex;
     flex-direction: column;
     gap: 0.45rem;
-    padding: 0.75rem;
-    border: 1px solid #9ca3af;
-    border-radius: 0.4rem;
-    background: #f9fafb;
+    padding: 0.9rem;
+    border: 1px solid #d7e1ec;
+    border-radius: 12px;
+    background: #f8fbff;
 }
 
 span {
@@ -58,10 +81,15 @@ span {
 
 .License-Update {
     min-width: 0;
-    border: 1px solid #1f2937;
-    border-radius: 0.5rem;
-    background: #e5e7eb;
-    padding: 1.5rem;
+    border: 1px solid #d7e1ec;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+    padding: 1.2rem;
+}
+
+.License-Update > h2 {
+    margin-bottom: 1rem;
 }
 
 @media (max-width: 900px) {
@@ -76,19 +104,19 @@ span {
 }
 
 .permanent-license {
-    padding: 0.75rem;
-    border: 1px solid #9ca3af;
-    border-radius: 0.4rem;
-    background: #f9fafb;
+    padding: 0.9rem;
+    border: 1px solid #d7e1ec;
+    border-radius: 12px;
+    background: #f8fbff;
     height: 100%;
     width: 50%;
 }
 
 .temporary-license {
-    padding: 0.75rem;
-    border: 1px solid #9ca3af;
-    border-radius: 0.4rem;
-    background: #f9fafb;
+    padding: 0.9rem;
+    border: 1px solid #d7e1ec;
+    border-radius: 12px;
+    background: #f8fbff;
     width: 50%;
 }
 
@@ -96,35 +124,43 @@ span {
     display: flex;
     flex-direction: row;
     gap: 1rem;
-    height: 250px;
+    min-height: 250px;
 }
 
 .permanent-license select,
 .temporary-license select {
     width: 100%;
     margin-top: 0.5rem;
-    padding: 0.55rem 0.65rem;
-    border: 1px solid #9ca3af;
-    border-radius: 4px;
+    padding: 0.6rem 0.65rem;
+    border: 1px solid #c7d4e2;
+    border-radius: 10px;
     background: #ffffff;
 }
 
 .permanent-license button,
 .temporary-license button {
     margin-top: 0.75rem;
-    margin-left: 0.5rem;
-    padding: 0.65rem 0.75rem;
-    font-size: 1.1rem;
-    border: 1px solid #9ca3af;
-    border-radius: 4px;
+    margin-right: 0.5rem;
+    padding: 0.52rem 0.72rem;
+    font-size: 0.9rem;
+    border: 1px solid #c7d4e2;
+    border-radius: 10px;
     cursor: pointer;
-    background: #f3f4f6;
+    background: #ffffff;
+    transition: all 0.2s ease;
 
 }
 
 .permanent-license button:hover,
 .temporary-license button:hover {
-    background: #e5e7eb;
+    border-color: #0f766e;
+    color: #0f766e;
+}
+
+.permanent-license button:disabled,
+.temporary-license button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
 }
 
 .license-viewer {
@@ -135,9 +171,9 @@ span {
 }
 
 .viewer-card {
-    border: 1px solid #9ca3af;
-    border-radius: 0.4rem;
-    background: #f9fafb;
+    border: 1px solid #d7e1ec;
+    border-radius: 12px;
+    background: #f8fbff;
     padding: 0.9rem;
 }
 
@@ -147,11 +183,44 @@ span {
 
 .status-message {
     margin-top: 0.8rem;
-    color: #1f2937;
+    color: #0f766e;
     font-weight: 600;
 }
 
+fieldset {
+    margin-top: 0.85rem;
+    border: 1px solid #d7e1ec;
+    border-radius: 12px;
+    padding: 0.7rem;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 0.45rem 0.6rem;
+}
+
+legend {
+    padding: 0 0.4rem;
+    font-weight: 600;
+    color: #334155;
+}
+
+input[type="date"] {
+    width: 100%;
+    border: 1px solid #c7d4e2;
+    border-radius: 10px;
+    padding: 0.45rem 0.55rem;
+}
+
 @media (max-width: 900px) {
+    .update-license {
+        flex-direction: column;
+    }
+
+    .permanent-license,
+    .temporary-license {
+        width: 100%;
+    }
+
     .license-viewer {
         grid-template-columns: 1fr;
     }
@@ -159,4 +228,20 @@ span {
 
 .update-button {
     margin-top: 1rem;
+}
+
+.update-button button {
+    border: 0;
+    border-radius: 10px;
+    padding: 0.65rem 0.95rem;
+    color: #ffffff;
+    font-weight: 600;
+    background: linear-gradient(135deg, #0f766e 0%, #115e59 100%);
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.update-button button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }

@@ -1,16 +1,22 @@
 import { useState } from "react";
 import './login.css'
 
-const Login = ({isLoggedIn, setIsLoggedIn}) => {
+const Login = ({ setIsLoggedIn }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (username === 'GRL' && password === 'GRLUSER') {
+        const normalizedUsername = username.trim();
+        const normalizedPassword = password.trim();
+
+        if (normalizedUsername === 'GRL' && normalizedPassword === 'GRLUSER') {
             setIsLoggedIn(true);
+            setError('');
         } else {
             setIsLoggedIn(false);
+            setError('Invalid username or password.');
         }
     };
 
@@ -18,7 +24,7 @@ const Login = ({isLoggedIn, setIsLoggedIn}) => {
         <>
             <div className="login-main" >
                 <h1>
-                    Login Page
+                    License Manager Login
                 </h1>
                 <form className="login-form" onSubmit={handleSubmit}>
                     <label htmlFor="username">ID:</label>
@@ -39,7 +45,8 @@ const Login = ({isLoggedIn, setIsLoggedIn}) => {
                         onChange={(e) => setPassword(e.target.value)}
                         placeholder="Password"
                     />
-                    <button type="submit">Login</button>
+                    {error && <p className="login-error">{error}</p>}
+                    <button type="submit" disabled={!username.trim() || !password.trim()}>Login</button>
                 </form>
             </div>
         </>

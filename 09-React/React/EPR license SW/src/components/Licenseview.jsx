@@ -3,51 +3,72 @@ import './license.css'
 import axios from "axios";
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const defaultDeviceInfo = {
+    SerialNumber: "",
+    PermanentLicense: [],
+    TemporaryLicense: [],
+};
+
+const ipAddressPattern = /^(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}$/;
 
 const LicenseView = () => {
 
     const [ipAddress, setIpAddress] = useState('192.168.255.1');
     const [isConnected, setIsConnected] = useState(false);
-    const [deviceInfo, setDeviceInfo] = useState({});
+    const [deviceInfo, setDeviceInfo] = useState(defaultDeviceInfo);
+    const [isConnecting, setIsConnecting] = useState(false);
+    const [isUpdating, setIsUpdating] = useState(false);
 
     const [selectedPermanent, setSelectedPermanent] = useState("");
     const [selectedTemporary, setSelectedTemporary] = useState("");
     const [statusMessage, setStatusMessage] = useState("");
 
-    const [PermanentLicenses, setPermanentLicenses] = useState([]);
-    const [TemporaryLicenses, setTemporaryLicenses] = useState([]);
+    const [permanentLicenses, setPermanentLicenses] = useState([]);
+    const [temporaryLicenses, setTemporaryLicenses] = useState([]);
     const [availablePermanentOptions, setAvailablePermanentOptions] = useState([]);
     const [availableTemporaryOptions, setAvailableTemporaryOptions] = useState([]);
 
     const [removedPermanentLicenses, setRemovedPermanentLicenses] = useState([]);
     const [removedTemporaryLicenses, setRemovedTemporaryLicenses] = useState([]);
 
-    const [TempLicenseDate, setUpdateDate] = useState({});
+    const [tempLicenseDate, setUpdateDate] = useState({ from: "", to: "" });
 
     const handleDateChange = (e) => {
         const { name, value } = e.target;
         setUpdateDate((prev) => ({ ...prev, [name]: value }));
-        console.log("Temp License Date:", { ...TempLicenseDate, [name]: value });
     }
 
     const updateLicense = async () => {
+        if (!isConnected) {
+            setStatusMessage("Connect to a device before updating licenses.");
+            return;
+        }
+
+        if (tempLicenseDate.from && tempLicenseDate.to && tempLicenseDate.from > tempLicenseDate.to) {
+            setStatusMessage("From date cannot be greater than To date.");
+            return;
+        }
+
         try {
-            const { from, to } = TempLicenseDate;
+            setIsUpdating(true);
+            const { from, to } = tempLicenseDate;
             const response = await axios.post(
                 `${BASE_URL}/api/connection/updateLicense`,
-                { PermanentLicenses, TemporaryLicenses, validFrom: from, validTo: to }
+                { permanentLicenses, temporaryLicenses, validFrom: from, validTo: to }
             );
             console.log('Update License success:', response.data);
             setStatusMessage("License updated successfully.");
         } catch (error) {
             console.error('Update License error:', error);
             setStatusMessage("Failed to update license. Please try again.");
+        } finally {
+            setIsUpdating(false);
         }
     };
 
-    const addlicense = (type) => {
+    const addLicense = (type) => {
         if (type === "permanent" && selectedPermanent) {
-            if (PermanentLicenses.includes(selectedPermanent)) {
+            if (permanentLicenses.includes(selectedPermanent)) {
                 setStatusMessage("Permanent license already added.");
                 return;
             }
@@ -60,7 +81,7 @@ const LicenseView = () => {
             setRemovedPermanentLicenses((prev) => prev.filter((license) => license !== selectedPermanent));
             setStatusMessage("Permanent license added.");
         } else if (type === "temporary" && selectedTemporary) {
-            if (TemporaryLicenses.includes(selectedTemporary)) {
+            if (temporaryLicenses.includes(selectedTemporary)) {
                 setStatusMessage("Temporary license already added.");
                 return;
             }
@@ -75,9 +96,9 @@ const LicenseView = () => {
         }
     };
 
-    const removelicense = (type) => {
+    const removeLicense = (type) => {
         if (type === "permanent" && selectedPermanent) {
-            if (PermanentLicenses.includes(selectedPermanent)) {
+            if (permanentLicenses.includes(selectedPermanent)) {
                 setPermanentLicenses((prev) => {
                     const updated = prev.filter((license) => license !== selectedPermanent);
                     console.log("Permanent Licenses:", updated);
@@ -95,7 +116,7 @@ const LicenseView = () => {
             setRemovedPermanentLicenses((prev) => [...prev, selectedPermanent]);
             setStatusMessage("Permanent license marked for removal.");
         } else if (type === "temporary" && selectedTemporary) {
-            if (TemporaryLicenses.includes(selectedTemporary)) {
+            if (temporaryLicenses.includes(selectedTemporary)) {
                 setTemporaryLicenses((prev) => {
                     const updated = prev.filter((license) => license !== selectedTemporary);
                     console.log("Temporary Licenses:", updated);
@@ -116,10 +137,17 @@ const LicenseView = () => {
     };
 
     const handleConnect = async () => {
+        if (!ipAddressPattern.test(ipAddress.trim())) {
+            setStatusMessage("Enter a valid IPv4 address.");
+            return;
+        }
+
         try {
+            setIsConnecting(true);
+            setStatusMessage("");
             const connectResponse = await axios.post(
                 `${BASE_URL}/api/connection/connect`,
-                { ipAddress }  // Automatic JSON conversion
+                { ipAddress: ipAddress.trim() }
             );
             const connectData = connectResponse.data;
 
@@ -151,9 +179,20 @@ const LicenseView = () => {
 
                 setAvailablePermanentOptions(permanentFromApi);
                 setAvailableTemporaryOptions(temporaryFromApi);
+                setStatusMessage("Connected. License options loaded.");
+            } else {
+                setIsConnected(false);
+                setStatusMessage("Unable to connect to target device.");
             }
         } catch (error) {
+            setIsConnected(false);
+            setDeviceInfo(defaultDeviceInfo);
+            setAvailablePermanentOptions([]);
+            setAvailableTemporaryOptions([]);
             console.error('Error:', error);  // Automatic error handling
+            setStatusMessage("Connection failed. Check API/server and try again.");
+        } finally {
+            setIsConnecting(false);
         }
     };
 
@@ -168,7 +207,9 @@ const LicenseView = () => {
                     value={ipAddress}
                     onChange={(e) => setIpAddress(e.target.value)}
                 />
-                <button onClick={handleConnect}>Connect</button>
+                <button onClick={handleConnect} disabled={isConnecting}>
+                    {isConnecting ? "Connecting..." : "Connect"}
+                </button>
                 {isConnected ? <p>Connected to {ipAddress}</p> : <p>Not connected</p>}
 
                 {deviceInfo && (
@@ -197,8 +238,8 @@ const LicenseView = () => {
                                         <option key={license} value={license}>{license}</option>
                                     ))}
                                 </select>
-                                <button onClick={() => addlicense("permanent")}>Add</button>
-                                <button onClick={() => removelicense("permanent")}>Remove</button>
+                                <button onClick={() => addLicense("permanent")} disabled={!selectedPermanent}>Add</button>
+                                <button onClick={() => removeLicense("permanent")} disabled={!selectedPermanent}>Remove</button>
                             </div>
                             <div className="temporary-license">
                                 <label htmlFor="temp-license">Add Temp License: </label>
@@ -212,15 +253,15 @@ const LicenseView = () => {
                                         <option key={license} value={license}>{license}</option>
                                     ))}
                                 </select>
-                                <button onClick={() => addlicense("temporary")}>Add</button>
-                                <button onClick={() => removelicense("temporary")}>Remove</button>
+                                <button onClick={() => addLicense("temporary")} disabled={!selectedTemporary}>Add</button>
+                                <button onClick={() => removeLicense("temporary")} disabled={!selectedTemporary}>Remove</button>
                                 <div>
                                     <fieldset>
                                         <legend>DATE: </legend>
                                         <label htmlFor="date-from">FROM: </label>
-                                        <input type="date" id="date-from" name="from" onChange={handleDateChange} />
+                                        <input type="date" id="date-from" name="from" value={tempLicenseDate.from} onChange={handleDateChange} />
                                         <label htmlFor="date-to">TO: </label>
-                                        <input type="date" id="date-to" name="to" onChange={handleDateChange} />
+                                        <input type="date" id="date-to" name="to" value={tempLicenseDate.to} onChange={handleDateChange} />
                                     </fieldset>
                                 </div>
                             </div>
@@ -229,17 +270,22 @@ const LicenseView = () => {
                         <div className="license-viewer">
                             <div className="viewer-card">
                                 <h3>Added Permanent Licenses</h3>
-                                <p><span>Permanent:</span> {PermanentLicenses.length ? PermanentLicenses.join(", ") : "None"}</p>
+                                <p><span>Permanent:</span> {permanentLicenses.length ? permanentLicenses.join(", ") : "None"}</p>
                             </div>
                             <div className="viewer-card">
                                 <h3>Added Temporary Licenses</h3>
-                                <p><span>Temporary:</span> {TemporaryLicenses.length ? TemporaryLicenses.join(", ") : "None"}</p>
+                                <p><span>Temporary:</span> {temporaryLicenses.length ? temporaryLicenses.join(", ") : "None"}</p>
                             </div>
                         </div>
                         {statusMessage && <p className="status-message">{statusMessage}</p>}
 
                         <div className="update-button">
-                            <button onClick={updateLicense}>Update License</button>
+                            <button
+                                onClick={updateLicense}
+                                disabled={isUpdating || (!permanentLicenses.length && !temporaryLicenses.length)}
+                            >
+                                {isUpdating ? "Updating..." : "Update License"}
+                            </button>
                         </div>
                     </>
                 ) : (
