@@ -38,3 +38,10 @@ Shift/rebalance tree →
 Write to disk
 
 Increased Storage Usage
+
+in memory collection ?
+
+as is no tracking. Now, by default, if we search or whenever we are querying data, the EF Core will have the snapshot of the object hidden. The object will be stored in some memory now. When we are updating, that is fine. If we want to display the read-only, then we need to use as-no-tracking. 
+When we are using AS OF node tracking in our query, it will give only the required object. It won't store the historic snapshots. The query will execute faster and uses half of the RAM. 
+
+"By default, EF Core tracks entities in memory using snapshots so it can detect changes during SaveChanges(). However, for read-only queries—like displaying a list of items on a UI—this wastes CPU and RAM. I always apply .AsNoTracking() to my read-only queries to bypass the change tracker, which significantly improves application performance and scalability."
