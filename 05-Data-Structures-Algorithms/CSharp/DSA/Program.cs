@@ -1,44 +1,44 @@
-﻿using DSA.Patterns;
+using DSA.OOP;
+using DSA.Patterns;
 
 namespace DSA
 {
     internal class Program
-    {   
+    {
         static void Main(string[] args)
         {
-            Pattern_Enum pattern = Pattern_Enum.Character_Triangle;
+            // ── MODE SELECTION ────────────────────────────────────────
+            // Choose between the OOP Learning app and the original DSA work.
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("\n  ╔═══════════════════════════════════════════╗");
+            Console.WriteLine("  ║        DEEPAK'S LEARNING PLATFORM        ║");
+            Console.WriteLine("  ╚═══════════════════════════════════════════╝\n");
+            Console.ResetColor();
 
-            switch (pattern)
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("  [1]  OOP Mastery Guide  — Interactive learning app");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("  [2]  DSA Practice       — Data structures & algorithms");
+            Console.ResetColor();
+
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.Write("\n  Choose (1 or 2): ");
+            Console.ResetColor();
+
+            var key = Console.ReadKey(intercept: true).KeyChar;
+            Console.WriteLine();
+
+            if (key == '2')
             {
-                case Pattern_Enum.square:
-                    Patterns_Problems.PrintSquarePattern(5);
-                    break;
-                case Pattern_Enum.pyramid:
-                    Patterns_Problems.PrintPyramidPattern(5);
-                    break;
-                case Pattern_Enum.InvertedPyramid:
-                    Patterns_Problems.PrintInvertedPyramidPattern(5);
-                    break;
-                case Pattern_Enum.Diamond:
-                    Patterns_Problems.PrintDiamondPattern(5);
-                    break;
-                case Pattern_Enum.Half_Diamond:
-                    Patterns_Problems.PrintHalfDiamondPattern(5);
-                    break;
-                case Pattern_Enum.Binary_Triangle:
-                    Patterns_Problems.PrintBinary_TrianglePattern(5);
-                    break;
-                case Pattern_Enum.Symmetrical_Numbers:
-                    Patterns_Problems.PrintSymmetrical_NumbersPattern(5);
-                    break;
-                case Pattern_Enum.Number_Triangle:
-                    Patterns_Problems.PrintNumber_TrianglePattern(5);
-                    break;
-                case Pattern_Enum.Character_Triangle:
-                    Patterns_Problems.PrintCharacter_TrianglePattern(5);
-                    break;
-                default:
-                    break;
+                // ── ORIGINAL DSA CODE ─────────────────────────────────
+                Console.WriteLine("DSA mode:");
+                Logical.matchchecker();
+            }
+            else
+            {
+                // ── OOP LEARNING APP (default) ────────────────────────
+                OOPProgram.Run();
             }
         }
     }

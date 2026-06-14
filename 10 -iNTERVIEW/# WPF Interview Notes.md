@@ -4,9 +4,9 @@
 
 **Grid** provides row- and column-based layout management.
 
-- It gives precise control over positioning, alignment, and spacing of controls.
-- Use **StackPanel** or **WrapPanel** for sequential layouts.
-- Use **Grid** when structured alignment and complex layouts are required.
+*   It gives precise control over positioning, alignment, and spacing of controls.
+*   Use **StackPanel** or **WrapPanel** for sequential layouts.
+*   Use **Grid** when structured alignment and complex layouts are required.
 
 ---
 
@@ -14,18 +14,20 @@
 
 **Data Binding** connects a ViewModel or C# object to the UI.
 
-- When the source property changes, the UI can update automatically.
-- Data binding typically requires a **DataContext**.
+*   When the source property changes, the UI can update automatically.
+*   Data binding typically requires a **DataContext**.
 
 ### Binding Modes
 
 #### OneWay Binding
-- Updates UI when source changes.
-- Source → UI
+
+*   Updates UI when source changes.
+*   Source → UI
 
 #### TwoWay Binding
-- Updates both source and UI.
-- Source ↔ UI
+
+*   Updates both source and UI.
+*   Source ↔ UI
 
 ---
 
@@ -33,18 +35,18 @@
 
 `INotifyPropertyChanged` is used to notify the UI when a ViewModel property changes.
 
-- Required for **Source → UI** updates.
-- Raises the `PropertyChanged` event.
-- Without it, changes made in the ViewModel will not automatically appear in the UI.
+*   Required for **Source → UI** updates.
+*   Raises the `PropertyChanged` event.
+*   Without it, changes made in the ViewModel will not automatically appear in the UI.
 
-```csharp
+```
 public event PropertyChangedEventHandler PropertyChanged;
 ```
 
 ### Important Interview Point
 
-- UI → Source updates can still happen through TwoWay Binding even without `INotifyPropertyChanged`.
-- But Source → UI updates require `INotifyPropertyChanged`.
+*   UI → Source updates can still happen through TwoWay Binding even without `INotifyPropertyChanged`.
+*   But Source → UI updates require `INotifyPropertyChanged`.
 
 ---
 
@@ -54,9 +56,9 @@ public event PropertyChangedEventHandler PropertyChanged;
 
 ### Benefits
 
-- Supports MVVM architecture.
-- Removes button click logic from code-behind.
-- Improves testability and separation of concerns.
+*   Supports MVVM architecture.
+*   Removes button click logic from code-behind.
+*   Improves testability and separation of concerns.
 
 ### Example
 
@@ -72,9 +74,9 @@ public event PropertyChangedEventHandler PropertyChanged;
 
 ### Common Examples
 
-- Boolean → Visibility
-- Enum → String
-- DateTime → Formatted Text
+*   Boolean → Visibility
+*   Enum → String
+*   DateTime → Formatted Text
 
 It converts data between the source and target during binding.
 
@@ -86,16 +88,16 @@ Resources are reusable objects stored in XAML.
 
 ### Examples
 
-- Styles
-- Brushes
-- Templates
-- Converters
+*   Styles
+*   Brushes
+*   Templates
+*   Converters
 
 ### Benefits
 
-- Reusability
-- Maintainability
-- Consistent UI
+*   Reusability
+*   Maintainability
+*   Consistent UI
 
 ---
 
@@ -107,7 +109,7 @@ It changes **how a control looks** without changing its behavior.
 
 ### Example
 
-- Redesigning a Button completely while keeping Button functionality.
+*   Redesigning a Button completely while keeping Button functionality.
 
 ### Interview Answer
 
@@ -123,9 +125,9 @@ Think of it as a **display template for data**.
 
 ### Used When
 
-- Displaying ViewModels
-- Complex objects
-- Collection items
+*   Displaying ViewModels
+*   Complex objects
+*   Collection items
 
 ### Example
 
@@ -142,10 +144,12 @@ Think of it as a **display template for data**.
 ### Interview Difference
 
 #### ControlTemplate
-- Defines appearance of a control.
+
+*   Defines appearance of a control.
 
 #### DataTemplate
-- Defines appearance of data.
+
+*   Defines appearance of data.
 
 ---
 
@@ -169,9 +173,9 @@ A **Property Trigger** monitors a control's own property.
 
 ### Common Examples
 
-- IsMouseOver
-- IsFocused
-- IsPressed
+*   IsMouseOver
+*   IsFocused
+*   IsPressed
 
 ### Example
 
@@ -182,10 +186,12 @@ A **Property Trigger** monitors a control's own property.
 ### Interview Difference
 
 #### DataTrigger
-- Watches ViewModel/Data properties.
+
+*   Watches ViewModel/Data properties.
 
 #### Property Trigger
-- Watches UI control properties.
+
+*   Watches UI control properties.
 
 ---
 
@@ -207,9 +213,9 @@ It allows access to that control from code-behind.
 
 XAML consists of:
 
-- Element
-- Property
-- Value
+*   Element
+*   Property
+*   Value
 
 ### Example
 
@@ -218,7 +224,7 @@ XAML consists of:
 ```
 
 | Part | Value |
-|--------|--------|
+| --- | --- |
 | Element | Button |
 | Property | Content |
 | Value | Save |
@@ -231,13 +237,13 @@ A **Dependency Property** is a special property managed by the WPF Property Syst
 
 ### Features Supported
 
-- Data Binding
-- Styles
-- Templates
-- Triggers
-- Animations
-- Default Values
-- Property Value Inheritance
+*   Data Binding
+*   Styles
+*   Templates
+*   Triggers
+*   Animations
+*   Default Values
+*   Property Value Inheritance
 
 ### Why Not Normal CLR Properties?
 
@@ -255,13 +261,13 @@ Dependency Properties provide additional WPF functionality and participate in th
 
 Use `async` and `await` in ViewModel commands to:
 
-- Keep the UI responsive.
-- Avoid UI freezes.
-- Write asynchronous code in a readable manner.
+*   Keep the UI responsive.
+*   Avoid UI freezes.
+*   Write asynchronous code in a readable manner.
 
 ### Example
 
-```csharp
+```
 public async Task LoadDataAsync()
 {
     await service.GetDataAsync();
@@ -280,7 +286,7 @@ WPF controls can only be accessed from the UI thread.
 
 If work is performed on a background thread and the UI must be updated, use:
 
-```csharp
+```
 Dispatcher.Invoke(() =>
 {
     // Update UI
@@ -289,7 +295,7 @@ Dispatcher.Invoke(() =>
 
 or
 
-```csharp
+```
 Dispatcher.BeginInvoke(() =>
 {
     // Update UI
@@ -307,7 +313,7 @@ to marshal execution back to the UI thread.
 # Quick Interview Differences
 
 | Concept | Purpose |
-|----------|----------|
+| --- | --- |
 | Grid | Structured row/column layout |
 | StackPanel | Sequential layout |
 | WrapPanel | Sequential layout with wrapping |
@@ -326,21 +332,21 @@ to marshal execution back to the UI thread.
 
 # One-Line Interview Revision
 
-- **Grid** → Best for row/column-based layouts.
-- **StackPanel** → Arranges controls sequentially.
-- **WrapPanel** → Sequential layout with automatic wrapping.
-- **Data Binding** → Connects ViewModel data to UI.
-- **OneWay Binding** → Source updates UI.
-- **TwoWay Binding** → Source and UI update each other.
-- **INotifyPropertyChanged** → Notifies UI when data changes.
-- **ICommand** → Moves UI actions to the ViewModel.
-- **IValueConverter** → Converts values between ViewModel and UI.
-- **Resource** → Reusable XAML objects.
-- **ControlTemplate** → Defines control appearance.
-- **DataTemplate** → Defines how data is displayed.
-- **DataTrigger** → Reacts to ViewModel data changes.
-- **Property Trigger** → Reacts to control property changes.
-- **x:Name** → Gives a unique name to a XAML element.
-- **Dependency Property** → Supports binding, styling, triggers, and animations.
-- **async/await** → Keeps UI responsive during long-running operations.
-- **Dispatcher** → Updates UI from background threads.
+*   **Grid** → Best for row/column-based layouts.
+*   **StackPanel** → Arranges controls sequentially.
+*   **WrapPanel** → Sequential layout with automatic wrapping.
+*   **Data Binding** → Connects ViewModel data to UI.
+*   **OneWay Binding** → Source updates UI.
+*   **TwoWay Binding** → Source and UI update each other.
+*   **INotifyPropertyChanged** → Notifies UI when data changes.
+*   **ICommand** → Moves UI actions to the ViewModel.
+*   **IValueConverter** → Converts values between ViewModel and UI.
+*   **Resource** → Reusable XAML objects.
+*   **ControlTemplate** → Defines control appearance.
+*   **DataTemplate** → Defines how data is displayed.
+*   **DataTrigger** → Reacts to ViewModel data changes.
+*   **Property Trigger** → Reacts to control property changes.
+*   **x:Name** → Gives a unique name to a XAML element.
+*   **Dependency Property** → Supports binding, styling, triggers, and animations.
+*   **async/await** → Keeps UI responsive during long-running operations.
+*   **Dispatcher** → Updates UI from background threads.
