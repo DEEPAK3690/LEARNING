@@ -85,23 +85,28 @@ namespace DSA.Patterns
 
             int k = 2;
 
-            int[] n = { 9, 4, 6, 7, 2 };
+            int[] n = { 9, 5, 3, 6, 2 };
 
-            int[] n1 = new int[p];
+            int[] n1 = {-1, -1, -1, -1, -1};
 
             for (int i = 0; i < n.Length; i++)
             {
                 for (int j = 0; j < i; j++)
                 {
-                    if (n[j] - k >= n[i] && n[i] <= n[j] + k)
+                    if (n[i] <= n[j] + k && n[i] >= n[j] - k)
                     {
-                        n1[i] = n[j];
-                        n1[j] = n[i];
+                        if (n1[j] != 0)
+                        {
+                            continue;
+                        }
+                        n1[i] = j+1;
+                        n1[j] = i+1;
+                        break;
                     }
                 }
             }
 
-            return n;
+            return n1;
         }
     }
 }
